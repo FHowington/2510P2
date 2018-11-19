@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class ServerInstance extends Server {
             ServerThread thread = null;
 
             servers = new ArrayList<>();
+            ports = new ArrayList<>();
+
 
             Scanner reader = new Scanner(System.in);
 
@@ -60,6 +63,13 @@ public class ServerInstance extends Server {
 
     public void startIndexing(){
         System.out.println("Indexing");
+        try {
+            MasterInstance master = new MasterInstance(servers, ports, this);
+            master.run();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
