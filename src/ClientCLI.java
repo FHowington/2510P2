@@ -33,47 +33,6 @@ public class ClientCLI {
                     System.out.println(cl.read());
                     break;
 
-                case "LOOP":
-                    System.out.println("Enter file name");
-                    File file = new File(reader.next());
-                    System.out.println("Enter line to begin reading");
-                    int begin = reader.nextInt();
-                    System.out.println("Enter line to end reading");
-                    int end = reader.nextInt();
-
-                    Scanner sc = null;
-                    try {
-                        sc = new Scanner(file);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-
-                    int i = 0;
-                    while (i < begin) {
-                        sc.nextLine();
-                        i++;
-                    }
-                    while (sc.hasNextLine() && i < end) {
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        String next = sc.nextLine();
-                        int nextVal = Integer.parseInt(next);
-                        System.out.println(nextVal);
-                        cl.update(nextVal);
-                        i++;
-                    }
-                    System.out.println("Complete.");
-                    break;
-
-                case "UPDATE":
-                    int val = reader.nextInt();
-                    cl.update(val);
-                    break;
-
                 case "EXIT":
                     return;
 
