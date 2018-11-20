@@ -7,10 +7,16 @@ public class MasterThread extends Thread {
     ObjectOutputStream output = null;
     ObjectInputStream input = null;
     private MasterInstance gs;
+    String path;
+    int beginning;
+    int end;
 
-    public MasterThread(Socket _socket, MasterInstance _gs) {
+    public MasterThread(Socket _socket, MasterInstance _gs, String path, int beginning, int end) {
         socket = _socket;
         this.gs = _gs;
+        this.path = path;
+        this.beginning = beginning;
+        this.end = end;
     }
 
     public void run() {

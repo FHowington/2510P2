@@ -1,4 +1,7 @@
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -37,7 +40,6 @@ public class ServerInstance extends Server {
 
             Scanner reader = new Scanner(System.in);
 
-
             while(true) {
                 System.out.println("Enter server and port of all indexing helpers, q when done");
                 String server = reader.next();
@@ -61,10 +63,10 @@ public class ServerInstance extends Server {
         }
     }
 
-    public void startIndexing(){
+    public void startIndexing(String path, int numToUse){
         System.out.println("Indexing");
         try {
-            MasterInstance master = new MasterInstance(servers, ports, this);
+            MasterInstance master = new MasterInstance(servers, ports, this, path, numToUse);
             master.run();
         } catch (IOException e) {
             e.printStackTrace();

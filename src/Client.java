@@ -46,16 +46,16 @@ public class Client {
         }
     }
 
-    public String read() {
+    public void index(String path) {
         if (isConnected()) {
             try {
                 Envelope message = new Envelope("INDEX");
+                message.addObject(path);
                 output.writeObject(message);
             } catch (Exception e) {
                 System.err.println("Error: " + e.getMessage());
                 e.printStackTrace(System.err);
             }
         }
-        return null;
     }
 }

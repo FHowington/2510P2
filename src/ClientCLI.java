@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class ClientCLI {
 
@@ -30,7 +27,10 @@ public class ClientCLI {
 
             switch (s.toUpperCase()) {
                 case "READ":
-                    System.out.println(cl.read());
+                    System.out.println("Specify the path to the document to be indexed");
+                    String path = reader.next();
+                    cl.index(path);
+                    System.out.println("Indexing request sent to server");
                     break;
 
                 case "EXIT":
