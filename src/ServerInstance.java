@@ -22,7 +22,7 @@ public class ServerInstance extends Server {
     private static ArrayList<String> servers;
     private static ArrayList<Integer> ports;
 
-    HashMap<String, HashMap<String,Integer>> masterTable = new HashMap<>();
+    private HashMap<String, HashMap<String,Integer>> masterTable = new HashMap<>();
 
 
 

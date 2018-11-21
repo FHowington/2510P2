@@ -14,12 +14,10 @@ public class ClientCLI {
 
         cl.connect(args[0], Integer.parseInt(args[1]));
 
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            public void run() {
-                System.out.println("Shutting down client");
-                cl.disconnect();
-            }
-        });
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Shutting down client");
+            cl.disconnect();
+        }));
 
         while (true) {
             System.out.println("\nEnter a command to execute. HELP for commands.");

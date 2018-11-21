@@ -12,8 +12,8 @@ public class MasterInstance extends Thread {
     private ArrayList<MasterThread> runningServers;
     private HashMap<String, Integer> fileCounts = new HashMap<>();
 
-    int stillRunning = 0;
-    String path;
+    private int stillRunning = 0;
+    private String path;
 
     public MasterInstance(ArrayList<String> servers, ArrayList<Integer> ports, ServerInstance _gs, String path) throws IOException {
         runningServers = new ArrayList<>();

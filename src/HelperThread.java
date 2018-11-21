@@ -9,8 +9,6 @@ import java.util.stream.Stream;
 
 public class HelperThread extends Thread {
     private final Socket socket;
-    ObjectOutputStream output = null;
-    ObjectInputStream input = null;
     private HelperInstance gs;
 
     private HashMap<String, Integer> result;
@@ -25,8 +23,8 @@ public class HelperThread extends Thread {
         boolean proceed = true;
 
         try {
-            output = new ObjectOutputStream(socket.getOutputStream());
-            input = new ObjectInputStream(socket.getInputStream());
+            ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
 
             while (proceed) {
                 Envelope message = (Envelope) input.readObject();

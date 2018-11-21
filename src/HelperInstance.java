@@ -1,7 +1,5 @@
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-
 
 public class HelperInstance extends Server {
 
@@ -37,8 +35,6 @@ public class HelperInstance extends Server {
             e.printStackTrace(System.err);
         }
     }
-
-
 
     public static void main(String[] args) {
         if (args.length > 0) {
