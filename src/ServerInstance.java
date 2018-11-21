@@ -3,6 +3,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -21,7 +22,7 @@ public class ServerInstance extends Server {
     private static ArrayList<String> servers;
     private static ArrayList<Integer> ports;
 
-    HashMap<String, Integer> masterTable = new HashMap<>();
+    HashMap<String, HashMap<String,Integer>> masterTable = new HashMap<>();
 
 
 
@@ -75,7 +76,6 @@ public class ServerInstance extends Server {
     }
 
 
-
     public static void main(String[] args) {
         if (args.length > 0) {
             try {
@@ -88,6 +88,20 @@ public class ServerInstance extends Server {
             ServerInstance server = new ServerInstance();
             server.start();
         }
+    }
+
+    public synchronized void updateMap(HashMap<String, Integer> si, String file){
+        for(Map.Entry<String, Integer> entry: si.entrySet()){
+            if(masterTable.containsKey(entry.getKey())){
+                masterTable.get(entry.getKey()).put(file,entry.getValue());
+            }
+            else {
+                HashMap<String, Integer> newhm = new HashMap<>();
+                newhm.put(file, entry.getValue());
+                masterTable.put(entry.getKey(), newhm);
+            }
+        }
+
     }
 }
 

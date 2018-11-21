@@ -10,8 +10,10 @@ import java.util.HashMap;
 public class MasterInstance extends Thread {
     private ServerInstance gs;
     private ArrayList<MasterThread> runningServers;
-
     private HashMap<String, Integer> fileCounts = new HashMap<>();
+
+    int stillRunning = 0;
+    String path;
 
     public MasterInstance(ArrayList<String> servers, ArrayList<Integer> ports, ServerInstance _gs, String path) throws IOException {
         runningServers = new ArrayList<>();
@@ -31,12 +33,14 @@ public class MasterInstance extends Thread {
             MasterThread t = new MasterThread(sock, this, path, pos, end);
             pos += labor;
             runningServers.add(t);
+            this.path = path;
         }
     }
 
     public void run() {
         for(Thread t: runningServers){
             t.start();
+            stillRunning++;
         }
     }
 
@@ -67,6 +71,9 @@ public class MasterInstance extends Thread {
 
     public synchronized void updateMap(HashMap<String, Integer> si){
         si.forEach((key, value) -> fileCounts.merge(key, value, (v1, v2) -> v1+v2));
-
+        stillRunning--;
+        if(stillRunning == 0){
+            gs.updateMap(fileCounts, path);
+        }
     }
 }
