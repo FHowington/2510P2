@@ -1,6 +1,7 @@
 import java.lang.Thread;
 import java.net.Socket;
 import java.io.*;
+import java.util.HashMap;
 
 public class MasterThread extends Thread {
     private final Socket socket;
@@ -33,6 +34,8 @@ public class MasterThread extends Thread {
 
                 if (message.getMessage().equals("TOKENS")) {
                     System.out.println("Got tokens!");
+                    HashMap<String, Integer> result = (HashMap<String, Integer>) message.getObjContents().get(0);
+                    gs.updateMap(result);
                 }
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());

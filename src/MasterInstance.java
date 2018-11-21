@@ -5,10 +5,13 @@ import java.io.InputStream;
 import java.lang.Thread;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MasterInstance extends Thread {
     private ServerInstance gs;
-    private ArrayList<MasterThread> runningServers;;
+    private ArrayList<MasterThread> runningServers;
+
+    private HashMap<String, Integer> fileCounts = new HashMap<>();
 
     public MasterInstance(ArrayList<String> servers, ArrayList<Integer> ports, ServerInstance _gs, String path) throws IOException {
         runningServers = new ArrayList<>();
@@ -62,4 +65,8 @@ public class MasterInstance extends Thread {
         return 0;
     }
 
+    public synchronized void updateMap(HashMap<String, Integer> si){
+        si.forEach((key, value) -> fileCounts.merge(key, value, (v1, v2) -> v1+v2));
+
+    }
 }

@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 
@@ -19,6 +20,8 @@ public class ServerInstance extends Server {
 
     private static ArrayList<String> servers;
     private static ArrayList<Integer> ports;
+
+    HashMap<String, Integer> masterTable = new HashMap<>();
 
 
 
