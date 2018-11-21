@@ -29,7 +29,7 @@ public class HelperInstance extends Server {
 
             while (true) {
                 sock = serverSock.accept();
-                thread = new HelperThread(sock, this, 0);
+                thread = new HelperThread(sock, this);
                 thread.start();
             }
         } catch (Exception e) {
