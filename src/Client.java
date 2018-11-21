@@ -46,11 +46,12 @@ public class Client {
         }
     }
 
-    public void index(String path) {
+    public void index(String path, int helpers) {
         if (isConnected()) {
             try {
                 Envelope message = new Envelope("INDEX");
                 message.addObject(path);
+                message.addObject(helpers);
                 output.writeObject(message);
             } catch (Exception e) {
                 System.err.println("Error: " + e.getMessage());

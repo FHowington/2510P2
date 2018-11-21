@@ -1,7 +1,6 @@
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class HelperInstance extends Server {
@@ -16,9 +15,6 @@ public class HelperInstance extends Server {
         super(_port, "ALPHA");
     }
 
-    private static ArrayList<String> servers;
-    private static ArrayList<Integer> ports;
-
 
 
     // Basically we should not send out more reqs when we are still waiting to hear back on current batch
@@ -27,10 +23,8 @@ public class HelperInstance extends Server {
 
             final ServerSocket serverSock = new ServerSocket(port);
 
-            Socket sock = null;
-            HelperThread thread = null;
-
-            servers = new ArrayList<>();
+            Socket sock;
+            HelperThread thread ;
 
 
             while (true) {
@@ -42,10 +36,6 @@ public class HelperInstance extends Server {
             System.err.println("Error: " + e.getMessage());
             e.printStackTrace(System.err);
         }
-    }
-
-    public void startIndexing(){
-        System.out.println("Indexing");
     }
 
 

@@ -27,9 +27,11 @@ public class ClientCLI {
 
             switch (s.toUpperCase()) {
                 case "READ":
-                    System.out.println("Specify the path to the document to be indexed");
+                    System.out.println("Specify the path to the document to be indexed and the number of helpers to use");
                     String path = reader.next();
-                    cl.index(path);
+                    int helpers = reader.nextInt();
+
+                    cl.index(path, helpers);
                     System.out.println("Indexing request sent to server");
                     break;
 

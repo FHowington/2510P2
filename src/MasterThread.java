@@ -25,12 +25,16 @@ public class MasterThread extends Thread {
         try {
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
-            Envelope response = new Envelope("Hello");
+            Envelope response = new Envelope("INDEX");
+            response.addObject(path);
+            response.addObject(beginning);
+            response.addObject(end);
             output.writeObject(response);
 
             while (proceed) {
                 Envelope message = (Envelope) input.readObject();
                 System.out.println("Received message: " + message.getMessage());
+
                 if (message.getMessage().equals("INDEX")) {
                     System.out.println("Indexing!");
                 }
@@ -40,23 +44,4 @@ public class MasterThread extends Thread {
             e.printStackTrace(System.err);
         }
     }
-
-    public synchronized void disconnect() {
-        System.out.println("Sending message: DISCONNECT");
-        Envelope reply = new Envelope("DISCONNECT");
-        try {
-            output.writeObject(reply);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            this.output.close();
-            this.input.close();
-            return;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

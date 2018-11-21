@@ -1,7 +1,4 @@
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -31,8 +28,8 @@ public class ServerInstance extends Server {
 
             final ServerSocket serverSock = new ServerSocket(port);
 
-            Socket sock = null;
-            ServerThread thread = null;
+            Socket sock;
+            ServerThread thread;
 
             servers = new ArrayList<>();
             ports = new ArrayList<>();
@@ -66,7 +63,7 @@ public class ServerInstance extends Server {
     public void startIndexing(String path, int numToUse){
         System.out.println("Indexing");
         try {
-            MasterInstance master = new MasterInstance(servers, ports, this, path, numToUse);
+            MasterInstance master = new MasterInstance(servers, ports, this, path);
             master.run();
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,8 +79,7 @@ public class ServerInstance extends Server {
                 ServerInstance server = new ServerInstance(Integer.parseInt(args[0]));
                 server.start();
             } catch (NumberFormatException e) {
-                System.out.printf("Enter a valid port number\n",
-                        ServerInstance.SERVER_PORT);
+                System.out.print("Enter a valid port number\n");
             }
         } else {
             ServerInstance server = new ServerInstance();

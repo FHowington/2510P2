@@ -30,7 +30,7 @@ public class ServerThread extends Thread {
                 System.out.println("Received message: " + message.getMessage());
                 if (message.getMessage().equals("INDEX")) {
                     System.out.println("Indexing!");
-                    gs.startIndexing();
+                    gs.startIndexing((String)message.getObjContents().get(0),(Integer)message.getObjContents().get(1));
                 }
             }
         } catch (Exception e) {
