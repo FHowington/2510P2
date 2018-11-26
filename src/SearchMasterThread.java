@@ -8,17 +8,16 @@ import java.util.LinkedHashMap;
 public class SearchMasterThread extends Thread {
     private final Socket socket;
     private SearchMasterInstance gs;
-    private String path;
-    private int beginning;
-    private int end;
+    LinkedHashMap<String, HashMap<String, Integer>> data;
+    HashSet<String> terms;
+
 
     SearchMasterThread(Socket _socket, SearchMasterInstance _gs, HashSet<String> terms,
                        LinkedHashMap<String, HashMap<String, Integer>> data) {
         socket = _socket;
         this.gs = _gs;
-        this.path = path;
-        this.beginning = beginning;
-        this.end = end;
+        this.data = data;
+        this.terms = terms;
     }
 
     public void run() {
@@ -26,18 +25,18 @@ public class SearchMasterThread extends Thread {
         try {
             ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-            Envelope response = new Envelope("INDEX");
-            response.addObject(path);
-            response.addObject(beginning);
-            response.addObject(end);
+            Envelope response = new Envelope("SEARCH");
+            response.addObject(terms);
+            response.addObject(data);
             output.writeObject(response);
 
             Envelope message = (Envelope) input.readObject();
             System.out.println("Received message: " + message.getMessage());
 
-            if (message.getMessage().equals("TOKENS")) {
-                System.out.println("Got tokens!");
+            if (message.getMessage().equals("RESULTS")) {
+                System.out.println("Got results!");
                 HashMap<String, Integer> result = (HashMap<String, Integer>) message.getObjContents().get(0);
+                System.out.println(result);
             }
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());

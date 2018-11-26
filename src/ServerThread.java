@@ -1,6 +1,7 @@
 import java.lang.Thread;
 import java.net.Socket;
 import java.io.*;
+import java.util.HashSet;
 
 public class ServerThread extends Thread {
     private final Socket socket;
@@ -34,7 +35,7 @@ public class ServerThread extends Thread {
                 }
                 if (message.getMessage().equals("SEARCH")) {
                     System.out.println("Searching!");
-                    gs.startIndexing((String)message.getObjContents().get(0),(Integer)message.getObjContents().get(1));
+                    gs.startSearching((HashSet<String>) message.getObjContents().get(0));
                 }
             }
         } catch (Exception e) {

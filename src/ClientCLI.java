@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class ClientCLI {
@@ -31,6 +33,16 @@ public class ClientCLI {
 
                     cl.index(path, helpers);
                     System.out.println("Indexing request sent to server");
+                    break;
+
+
+                case "SEARCH":
+                    System.out.println("Specify all search terms");
+                    HashSet<String> terms = new HashSet<>();
+                    terms.add(reader.next());
+
+                    cl.search(terms);
+                    System.out.println("Search request sent to server");
                     break;
 
                 case "EXIT":

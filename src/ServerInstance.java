@@ -37,6 +37,8 @@ public class ServerInstance extends Server {
 
             servers = new ArrayList<>();
             ports = new ArrayList<>();
+            searchServers = new ArrayList<>();
+            searchPorts = new ArrayList<>();
 
 
             Scanner reader = new Scanner(System.in);

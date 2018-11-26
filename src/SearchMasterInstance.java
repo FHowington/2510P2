@@ -1,7 +1,4 @@
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.Thread;
 import java.net.Socket;
 import java.util.*;
@@ -12,7 +9,6 @@ public class SearchMasterInstance extends Thread {
     private HashMap<String, Integer> fileCounts = new HashMap<>();
 
     private int stillRunning = 0;
-    private HashSet<String> terms;
 
     public SearchMasterInstance(ArrayList<String> servers, ArrayList<Integer> ports, ServerInstance _gs,
                                 HashSet<String> terms, LinkedHashMap<String,
@@ -20,22 +16,23 @@ public class SearchMasterInstance extends Thread {
 
         runningServers = new ArrayList<>();
         this.gs = _gs;
-        this.terms = terms;
 
-        int numPerServer = (int) Math.ceil((double) masterTable.size() / servers.size());
+        int numPerServer = (int) Math.ceil((double) terms.size() / servers.size());
 
 
-        Iterator<Map.Entry<String, HashMap<String, Integer>>> it = masterTable.entrySet().iterator();
+        Iterator<String> it = terms.iterator();
 
         for (int i = 0; i < servers.size(); i++) {
             LinkedHashMap<String, HashMap<String, Integer>> split = new LinkedHashMap<>();
             int count = 0;
             while (it.hasNext() && count < numPerServer) {
-                Map.Entry<String, HashMap<String, Integer>> entry = it.next();
-                split.put(entry.getKey(), entry.getValue());
+                String entry = it.next();
+                split.put(entry, masterTable.get(entry));
+                System.out.println("Key: " + entry);
                 count++;
             }
             if (count > 0) {
+                System.out.println("Sent: " + count);
                 Socket sock = new Socket(servers.get(i), ports.get(i));
                 SearchMasterThread t = new SearchMasterThread(sock, this, terms, split);
                 runningServers.add(t);

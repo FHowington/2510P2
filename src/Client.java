@@ -1,6 +1,8 @@
 import java.net.Socket;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Client {
     protected Socket sock;
@@ -52,6 +54,19 @@ public class Client {
                 Envelope message = new Envelope("INDEX");
                 message.addObject(path);
                 message.addObject(helpers);
+                output.writeObject(message);
+            } catch (Exception e) {
+                System.err.println("Error: " + e.getMessage());
+                e.printStackTrace(System.err);
+            }
+        }
+    }
+
+    public void search(HashSet<String> terms) {
+        if (isConnected()) {
+            try {
+                Envelope message = new Envelope("SEARCH");
+                message.addObject(terms);
                 output.writeObject(message);
             } catch (Exception e) {
                 System.err.println("Error: " + e.getMessage());

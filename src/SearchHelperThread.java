@@ -25,11 +25,11 @@ public class SearchHelperThread extends Thread {
             while (proceed) {
                 Envelope message = (Envelope) input.readObject();
                 System.out.println("Received message: " + message.getMessage());
-                if (message.getMessage().equals("INDEX")) {
-                    System.out.println("Got index request");
+                if (message.getMessage().equals("SEARCH")) {
+                    System.out.println("Got search request");
 
-                    Envelope response = new Envelope("TOKENS");
-                    response.addObject(result);
+                    Envelope response = new Envelope("RESULTS");
+                    response.addObject(null);
                     output.writeObject(response);
                     return;
                 }
