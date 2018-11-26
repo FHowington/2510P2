@@ -12,12 +12,11 @@ public class SearchMasterThread extends Thread {
     HashSet<String> terms;
 
 
-    SearchMasterThread(Socket _socket, SearchMasterInstance _gs, HashSet<String> terms,
+    SearchMasterThread(Socket _socket, SearchMasterInstance _gs,
                        LinkedHashMap<String, HashMap<String, Integer>> data) {
         socket = _socket;
         this.gs = _gs;
         this.data = data;
-        this.terms = terms;
     }
 
     public void run() {
@@ -26,7 +25,6 @@ public class SearchMasterThread extends Thread {
             ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             Envelope response = new Envelope("SEARCH");
-            response.addObject(terms);
             response.addObject(data);
             output.writeObject(response);
 

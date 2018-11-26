@@ -34,7 +34,7 @@ public class SearchMasterInstance extends Thread {
             if (count > 0) {
                 System.out.println("Sent: " + count);
                 Socket sock = new Socket(servers.get(i), ports.get(i));
-                SearchMasterThread t = new SearchMasterThread(sock, this, terms, split);
+                SearchMasterThread t = new SearchMasterThread(sock, this, split);
                 runningServers.add(t);
             }
         }
