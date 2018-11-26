@@ -27,7 +27,7 @@ public class SearchHelperThread extends Thread {
                 System.out.println("Received message: " + message.getMessage());
                 if (message.getMessage().equals("INDEX")) {
                     System.out.println("Got index request");
-                    
+
                     Envelope response = new Envelope("TOKENS");
                     response.addObject(result);
                     output.writeObject(response);

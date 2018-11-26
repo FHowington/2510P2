@@ -1,10 +1,7 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class ServerInstance extends Server {
@@ -22,7 +19,7 @@ public class ServerInstance extends Server {
     private static ArrayList<String> servers;
     private static ArrayList<Integer> ports;
 
-    private HashMap<String, HashMap<String,Integer>> masterTable = new HashMap<>();
+    private LinkedHashMap<String, HashMap<String,Integer>> masterTable = new LinkedHashMap<>();
 
 
 
@@ -68,6 +65,16 @@ public class ServerInstance extends Server {
         System.out.println("Indexing");
         try {
             MasterInstance master = new MasterInstance(servers, ports, this, path);
+            master.run();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void startSearching(HashSet<String> terms, int numToUse){
+        System.out.println("Indexing");
+        try {
+            SearchMasterInstance master = new SearchMasterInstance(servers, ports, this, terms);
             master.run();
         } catch (IOException e) {
             e.printStackTrace();

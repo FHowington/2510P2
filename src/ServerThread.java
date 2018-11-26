@@ -32,6 +32,10 @@ public class ServerThread extends Thread {
                     System.out.println("Indexing!");
                     gs.startIndexing((String)message.getObjContents().get(0),(Integer)message.getObjContents().get(1));
                 }
+                if (message.getMessage().equals("SEARCH")) {
+                    System.out.println("Searching!");
+                    gs.startIndexing((String)message.getObjContents().get(0),(Integer)message.getObjContents().get(1));
+                }
             }
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
