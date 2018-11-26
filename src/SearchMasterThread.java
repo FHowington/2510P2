@@ -3,6 +3,7 @@ import java.net.Socket;
 import java.io.*;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 
 public class SearchMasterThread extends Thread {
     private final Socket socket;
@@ -11,7 +12,8 @@ public class SearchMasterThread extends Thread {
     private int beginning;
     private int end;
 
-    SearchMasterThread(Socket _socket, SearchMasterInstance _gs, HashSet<String> terms) {
+    SearchMasterThread(Socket _socket, SearchMasterInstance _gs, HashSet<String> terms,
+                       LinkedHashMap<String, HashMap<String, Integer>> data) {
         socket = _socket;
         this.gs = _gs;
         this.path = path;

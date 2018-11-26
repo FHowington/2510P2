@@ -19,6 +19,9 @@ public class ServerInstance extends Server {
     private static ArrayList<String> servers;
     private static ArrayList<Integer> ports;
 
+    private static ArrayList<String> searchServers;
+    private static ArrayList<Integer> searchPorts;
+
     private LinkedHashMap<String, HashMap<String,Integer>> masterTable = new LinkedHashMap<>();
 
 
@@ -50,6 +53,18 @@ public class ServerInstance extends Server {
                 ports.add(port);
             }
 
+            while(true) {
+                System.out.println("Enter server and port of all searching helpers, q when done");
+                String server = reader.next();
+                if (server.equals("q")) {
+                    System.out.println("All indexing helpers finalized");
+                    break;
+                }
+                Integer port = reader.nextInt();
+                searchServers.add(server);
+                searchPorts.add(port);
+            }
+
             while (true) {
                 sock = serverSock.accept();
                 thread = new ServerThread(sock, this, 0);
@@ -71,10 +86,11 @@ public class ServerInstance extends Server {
         }
     }
 
-    public void startSearching(HashSet<String> terms, int numToUse){
+    public void startSearching(HashSet<String> terms){
         System.out.println("Indexing");
+
         try {
-            SearchMasterInstance master = new SearchMasterInstance(servers, ports, this, terms);
+            SearchMasterInstance master = new SearchMasterInstance(searchServers, searchPorts, this, terms, masterTable);
             master.run();
         } catch (IOException e) {
             e.printStackTrace();
