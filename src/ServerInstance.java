@@ -126,6 +126,12 @@ public class ServerInstance extends Server {
                 masterTable.put(entry.getKey(), newhm);
             }
         }
+    }
+
+    public synchronized void searchResult(HashMap<String, Integer> si){
+        for(Map.Entry<String, Integer> entry: si.entrySet()){
+            System.out.println(entry);
+        }
 
     }
 }

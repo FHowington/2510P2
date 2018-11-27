@@ -20,7 +20,7 @@ public class MasterInstance extends Thread {
         this.gs = _gs;
 
         int lc = countLines(path);
-        int labor = lc/servers.size();
+        int labor = lc/servers.size()+1;
         int pos = 0;
 
         for(int i=0; i<servers.size(); i++){

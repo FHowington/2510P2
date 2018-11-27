@@ -32,9 +32,9 @@ public class SearchMasterThread extends Thread {
             System.out.println("Received message: " + message.getMessage());
 
             if (message.getMessage().equals("RESULTS")) {
-                System.out.println("Got results!");
                 HashMap<String, Integer> result = (HashMap<String, Integer>) message.getObjContents().get(0);
-                System.out.println(result);
+                gs.searchResult(result);
+                System.out.println("Sent results to master");
             }
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());

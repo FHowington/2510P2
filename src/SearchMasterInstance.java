@@ -28,11 +28,10 @@ public class SearchMasterInstance extends Thread {
             while (it.hasNext() && count < numPerServer) {
                 String entry = it.next();
                 split.put(entry, masterTable.get(entry));
-                System.out.println("Key: " + entry);
                 count++;
             }
+
             if (count > 0) {
-                System.out.println("Sent: " + count);
                 Socket sock = new Socket(servers.get(i), ports.get(i));
                 SearchMasterThread t = new SearchMasterThread(sock, this, split);
                 runningServers.add(t);
@@ -44,6 +43,14 @@ public class SearchMasterInstance extends Thread {
         for (Thread t : runningServers) {
             t.start();
             stillRunning++;
+        }
+    }
+
+    public synchronized void searchResult(HashMap<String, Integer> si){
+        si.forEach((key, value) -> fileCounts.merge(key, value, (v1, v2) -> v1+v2));
+        stillRunning--;
+        if(stillRunning == 0){
+            gs.searchResult(fileCounts);
         }
     }
 }

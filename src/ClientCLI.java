@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class ClientCLI {
 
@@ -26,7 +27,7 @@ public class ClientCLI {
             String s = reader.next();
 
             switch (s.toUpperCase()) {
-                case "READ":
+                case "INDEX":
                     System.out.println("Specify the path to the document to be indexed and the number of helpers to use");
                     String path = reader.next();
                     int helpers = reader.nextInt();
@@ -37,9 +38,14 @@ public class ClientCLI {
 
 
                 case "SEARCH":
-                    System.out.println("Specify all search terms");
+                    System.out.println("Specify all search terms on a single line");
+                    reader.nextLine();
+                    StringTokenizer st = new StringTokenizer(reader.nextLine());
                     HashSet<String> terms = new HashSet<>();
-                    terms.add(reader.next());
+
+                    while(st.hasMoreTokens()) {
+                        terms.add(st.nextToken());
+                    }
 
                     cl.search(terms);
                     System.out.println("Search request sent to server");
