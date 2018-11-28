@@ -88,11 +88,12 @@ public class ServerInstance extends Server {
         }
     }
 
-    public void startSearching(HashSet<String> terms){
+    public void startSearching(HashSet<String> terms, ServerThread client){
         System.out.println("Indexing");
 
         try {
-            SearchMasterInstance master = new SearchMasterInstance(searchServers, searchPorts, this, terms, masterTable);
+            SearchMasterInstance master = new SearchMasterInstance(searchServers, searchPorts, this, terms,
+                    masterTable, client);
             master.run();
         } catch (IOException e) {
             e.printStackTrace();
@@ -128,11 +129,8 @@ public class ServerInstance extends Server {
         }
     }
 
-    public synchronized void searchResult(HashMap<String, Integer> si){
-        for(Map.Entry<String, Integer> entry: si.entrySet()){
-            System.out.println(entry);
-        }
-
+    public synchronized void searchResult(HashMap<String, Integer> si, ServerThread client){
+        client.sendResults(si);
     }
 }
 

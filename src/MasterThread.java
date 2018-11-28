@@ -33,7 +33,7 @@ public class MasterThread extends Thread {
                 System.out.println("Received message: " + message.getMessage());
 
                 if (message.getMessage().equals("TOKENS")) {
-                    System.out.println("Got tokens!");
+                    System.out.println("Got Tokens");
                     HashMap<String, Integer> result = (HashMap<String, Integer>) message.getObjContents().get(0);
                     gs.updateMap(result);
                 }

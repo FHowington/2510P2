@@ -48,7 +48,6 @@ public class ClientCLI {
                     }
 
                     cl.search(terms);
-                    System.out.println("Search request sent to server");
                     break;
 
                 case "EXIT":

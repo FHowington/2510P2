@@ -1,7 +1,7 @@
 import java.lang.Thread;
 import java.net.Socket;
 import java.io.*;
-import java.util.HashSet;
+import java.util.*;
 
 public class ServerThread extends Thread {
     private final Socket socket;
@@ -23,8 +23,6 @@ public class ServerThread extends Thread {
         try {
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
-            Envelope response = new Envelope("SERVER");
-            output.writeObject(response);
 
             while (proceed) {
                 Envelope message = (Envelope) input.readObject();
@@ -35,7 +33,12 @@ public class ServerThread extends Thread {
                 }
                 if (message.getMessage().equals("SEARCH")) {
                     System.out.println("Searching!");
-                    gs.startSearching((HashSet<String>) message.getObjContents().get(0));
+                    gs.startSearching((HashSet<String>) message.getObjContents().get(0), this);
+                }
+
+                if(message.getMessage().equals("DISCONNECT")){
+                    System.out.println("Removing client");
+                    return;
                 }
             }
         } catch (Exception e) {
@@ -44,22 +47,42 @@ public class ServerThread extends Thread {
         }
     }
 
-    public synchronized void disconnect() {
-        System.out.println("Sending message: DISCONNECT");
-        Envelope reply = new Envelope("DISCONNECT");
+    public void sendResults(HashMap<String, Integer> results){
+        Envelope response = new Envelope("RESULTS");
+        response.addObject(sortHashMapByValues(results));
         try {
-            output.writeObject(reply);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            this.output.close();
-            this.input.close();
-            return;
+            output.writeObject(response);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+
+    private static LinkedHashMap<String, Integer> sortHashMapByValues(
+            HashMap<String, Integer> passedMap) {
+
+        List<String> mapKeys = new ArrayList<>(passedMap.keySet());
+        List<Integer> mapValues = new ArrayList<>(passedMap.values());
+        mapValues.sort(Collections.reverseOrder());
+        mapKeys.sort(Collections.reverseOrder());
+
+        LinkedHashMap<String, Integer> sortedMap =
+                new LinkedHashMap<>();
+
+        for (Integer val : mapValues) {
+            Iterator<String> keyIt = mapKeys.iterator();
+
+            while (keyIt.hasNext()) {
+                String key = keyIt.next();
+                Integer comp1 = passedMap.get(key);
+
+                if (comp1.equals(val)) {
+                    keyIt.remove();
+                    sortedMap.put(key, val);
+                    break;
+                }
+            }
+        }
+        return sortedMap;
+    }
 }

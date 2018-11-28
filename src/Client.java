@@ -1,13 +1,12 @@
 import java.net.Socket;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 
 public class Client {
-    protected Socket sock;
-    protected ObjectOutputStream output;
-    protected ObjectInputStream input;
+    private Socket sock;
+    private ObjectOutputStream output;
+    private ObjectInputStream input;
 
     public boolean connect(final String server, final int port) {
         System.out.println("Attempting to connect");
@@ -29,11 +28,7 @@ public class Client {
     }
 
     public boolean isConnected() {
-        if (sock == null || !sock.isConnected()) {
-            return false;
-        } else {
-            return true;
-        }
+        return sock != null && sock.isConnected();
     }
 
     public void disconnect() {
@@ -68,6 +63,29 @@ public class Client {
                 Envelope message = new Envelope("SEARCH");
                 message.addObject(terms);
                 output.writeObject(message);
+
+                message = (Envelope) input.readObject();
+
+                if(message.getObjContents().size() > 0 && message.getObjContents().get(0) != null){
+                    Iterator<Map.Entry<String, Integer>> result =
+                            ((LinkedHashMap<String, Integer>) message.getObjContents().get(0)).entrySet().iterator();
+
+                    if (result.hasNext()) {
+                        System.out.println("Search results in descending relevance:");
+
+                    }
+                    else{
+                        System.out.println("No results found.");
+                    }
+
+                    while (result.hasNext()){
+                        System.out.println(result.next());
+                    }
+                }
+                else{
+                    System.out.println("No results found.");
+                }
+
             } catch (Exception e) {
                 System.err.println("Error: " + e.getMessage());
                 e.printStackTrace(System.err);

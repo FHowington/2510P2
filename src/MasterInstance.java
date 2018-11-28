@@ -20,11 +20,14 @@ public class MasterInstance extends Thread {
         this.gs = _gs;
 
         int lc = countLines(path);
+        System.out.println("Lines: " + lc);
         int labor = lc/servers.size()+1;
         int pos = 0;
 
         for(int i=0; i<servers.size(); i++){
+            System.out.println("Start: " + pos);
             int end = pos + labor;
+            System.out.println("End: " + end);
             if(end > lc){
                 end = lc;
             }

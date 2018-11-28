@@ -33,9 +33,11 @@ public class SearchHelperThread extends Thread {
 
                     // For every search term, update every file that contains the term
                     for(Map.Entry<String, HashMap<String, Integer>> entry: stringFileNumber.entrySet()){
-                        for(Map.Entry<String, Integer> innerEntry : entry.getValue().entrySet()){
-                            // We now have a hashmap of files and how many times an entry known to be searched for appears
-                            result.put(innerEntry.getKey(), result.getOrDefault(innerEntry.getKey(), 0) + innerEntry.getValue());
+                        if(entry.getValue() != null) {
+                            for (Map.Entry<String, Integer> innerEntry : entry.getValue().entrySet()) {
+                                // We now have a hashmap of files and how many times an entry known to be searched for appears
+                                result.put(innerEntry.getKey(), result.getOrDefault(innerEntry.getKey(), 0) + innerEntry.getValue());
+                            }
                         }
                     }
 

@@ -34,7 +34,6 @@ public class SearchMasterThread extends Thread {
             if (message.getMessage().equals("RESULTS")) {
                 HashMap<String, Integer> result = (HashMap<String, Integer>) message.getObjContents().get(0);
                 gs.searchResult(result);
-                System.out.println("Sent results to master");
             }
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
