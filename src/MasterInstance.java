@@ -15,7 +15,7 @@ public class MasterInstance extends Thread {
     private int stillRunning = 0;
     private String path;
 
-    public MasterInstance(ArrayList<String> servers, ArrayList<Integer> ports, ServerInstance _gs, String path) throws IOException {
+    MasterInstance(ArrayList<String> servers, ArrayList<Integer> ports, ServerInstance _gs, String path) throws IOException {
         runningServers = new ArrayList<>();
         this.gs = _gs;
 
@@ -53,7 +53,7 @@ public class MasterInstance extends Thread {
             try (InputStream is = new BufferedInputStream(new FileInputStream(filename))) {
                 byte[] c = new byte[1024];
                 int count = 0;
-                int readChars = 0;
+                int readChars;
                 boolean empty = true;
                 while ((readChars = is.read(c)) != -1) {
                     empty = false;

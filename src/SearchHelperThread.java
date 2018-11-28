@@ -14,6 +14,7 @@ public class SearchHelperThread extends Thread {
         this.gs = _gs;
     }
 
+    @SuppressWarnings("unchecked")
     public void run() {
         boolean proceed = true;
 

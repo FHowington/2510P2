@@ -1,3 +1,4 @@
+import java.io.File;
 import java.net.Socket;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -43,20 +44,28 @@ public class Client {
         }
     }
 
-    public void index(String path, int helpers) {
+    public void index(String path) {
         if (isConnected()) {
-            try {
-                Envelope message = new Envelope("INDEX");
-                message.addObject(path);
-                message.addObject(helpers);
-                output.writeObject(message);
-            } catch (Exception e) {
-                System.err.println("Error: " + e.getMessage());
-                e.printStackTrace(System.err);
+
+            File tmpDir = new File(path);
+            if (tmpDir.exists()) {
+                try {
+                    Envelope message = new Envelope("INDEX");
+                    message.addObject(path);
+                    output.writeObject(message);
+                    System.out.println("Indexing request sent to server");
+                } catch (Exception e) {
+                    System.err.println("Error: " + e.getMessage());
+                    e.printStackTrace(System.err);
+                }
+            }
+            else{
+                System.out.println("No such file.");
             }
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void search(HashSet<String> terms) {
         if (isConnected()) {
             try {

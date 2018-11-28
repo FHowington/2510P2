@@ -9,10 +9,10 @@ public class SearchMasterInstance extends Thread {
     private HashMap<String, Integer> fileCounts = new HashMap<>();
 
     private int stillRunning = 0;
-    ServerThread client;
+    private ServerThread client;
 
-    public SearchMasterInstance(ArrayList<String> servers, ArrayList<Integer> ports, ServerInstance _gs,
-                                HashSet<String> terms, LinkedHashMap<String,
+    SearchMasterInstance(ArrayList<String> servers, ArrayList<Integer> ports, ServerInstance _gs,
+                         HashSet<String> terms, LinkedHashMap<String,
             HashMap<String, Integer>> masterTable, ServerThread client) throws IOException {
 
         runningServers = new ArrayList<>();

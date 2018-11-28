@@ -18,6 +18,7 @@ public class MasterThread extends Thread {
         this.end = end;
     }
 
+    @SuppressWarnings("unchecked")
     public void run() {
 
         try {

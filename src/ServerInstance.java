@@ -69,7 +69,7 @@ public class ServerInstance extends Server {
 
             while (true) {
                 sock = serverSock.accept();
-                thread = new ServerThread(sock, this, 0);
+                thread = new ServerThread(sock, this);
                 thread.start();
             }
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class ServerInstance extends Server {
         }
     }
 
-    public void startIndexing(String path, int numToUse){
+    public void startIndexing(String path){
         System.out.println("Indexing");
         try {
             MasterInstance master = new MasterInstance(servers, ports, this, path);

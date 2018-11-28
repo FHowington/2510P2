@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -28,12 +27,9 @@ public class ClientCLI {
 
             switch (s.toUpperCase()) {
                 case "INDEX":
-                    System.out.println("Specify the path to the document to be indexed and the number of helpers to use");
+                    System.out.println("Specify the path to the document to be indexed");
                     String path = reader.next();
-                    int helpers = reader.nextInt();
-
-                    cl.index(path, helpers);
-                    System.out.println("Indexing request sent to server");
+                    cl.index(path);
                     break;
 
 
@@ -54,9 +50,8 @@ public class ClientCLI {
                     return;
 
                 case "HELP":
-                    System.out.println("Commands:\nUPDATE: Updates file by adding a 1 to last element in central file\n" +
-                            "LOOP: Loops through commands in given file" +
-                            "READ: Performs read on last line in file" +
+                    System.out.println("Commands:\nINDEX: Completely indexes file at given location\n" +
+                            "SEARCH: Searches for files containing given terms\n" +
                             "EXIT: Exits client");
                     break;
             }

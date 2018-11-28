@@ -2,15 +2,12 @@ import java.lang.Thread;
 import java.net.Socket;
 import java.io.*;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 public class SearchMasterThread extends Thread {
     private final Socket socket;
     private SearchMasterInstance gs;
-    LinkedHashMap<String, HashMap<String, Integer>> data;
-    HashSet<String> terms;
-
+    private LinkedHashMap<String, HashMap<String, Integer>> data;
 
     SearchMasterThread(Socket _socket, SearchMasterInstance _gs,
                        LinkedHashMap<String, HashMap<String, Integer>> data) {
@@ -19,6 +16,7 @@ public class SearchMasterThread extends Thread {
         this.data = data;
     }
 
+    @SuppressWarnings("unchecked")
     public void run() {
 
         try {

@@ -42,8 +42,7 @@ public class HelperInstance extends Server {
                 HelperInstance server = new HelperInstance(Integer.parseInt(args[0]));
                 server.start();
             } catch (NumberFormatException e) {
-                System.out.printf("Enter a valid port number\n",
-                        HelperInstance.SERVER_PORT);
+                System.out.println("Enter a valid port number");
             }
         } else {
             HelperInstance server = new HelperInstance();

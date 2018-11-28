@@ -6,30 +6,28 @@ import java.util.*;
 public class ServerThread extends Thread {
     private final Socket socket;
     public int type = 0;
-    private int host;
-    ObjectOutputStream output = null;
-    ObjectInputStream input = null;
+    private ObjectOutputStream output = null;
     private ServerInstance gs;
 
-    public ServerThread(Socket _socket, ServerInstance _gs, int host) {
+    ServerThread(Socket _socket, ServerInstance _gs) {
         socket = _socket;
-        this.host = host;
         this.gs = _gs;
     }
 
+    @SuppressWarnings("unchecked")
     public void run() {
         boolean proceed = true;
 
         try {
             output = new ObjectOutputStream(socket.getOutputStream());
-            input = new ObjectInputStream(socket.getInputStream());
+            ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
 
             while (proceed) {
                 Envelope message = (Envelope) input.readObject();
                 System.out.println("Received message: " + message.getMessage());
                 if (message.getMessage().equals("INDEX")) {
                     System.out.println("Indexing!");
-                    gs.startIndexing((String)message.getObjContents().get(0),(Integer)message.getObjContents().get(1));
+                    gs.startIndexing((String)message.getObjContents().get(0));
                 }
                 if (message.getMessage().equals("SEARCH")) {
                     System.out.println("Searching!");

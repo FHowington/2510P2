@@ -42,8 +42,7 @@ public class SearchHelperInstance extends Server {
                 SearchHelperInstance server = new SearchHelperInstance(Integer.parseInt(args[0]));
                 server.start();
             } catch (NumberFormatException e) {
-                System.out.printf("Enter a valid port number\n",
-                        SearchHelperInstance.SERVER_PORT);
+                System.out.println("Enter a valid port number");
             }
         } else {
             SearchHelperInstance server = new SearchHelperInstance();
