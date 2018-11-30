@@ -13,34 +13,34 @@ import java.util.List;
  */
 public class HadoopSearcher
 {
-    // TODO: Not sure what the input/output key/value types should be
-    // since I don't know yet what input readers are available
+    // TODO: Use the SequenceFile input format to read the KVPs directly
+    // (we'll need to use the same output format for the indexer)
     public static class SearchMap extends MapReduceBase
-            implements Mapper<Text, List<DocumentWordPair>, Text, Text>
+            implements Mapper<Text, List<DocumentWordPair>, Text, List<DocumentWordPair>>
     {
         @Override
         public void map(Text term,
                         List<DocumentWordPair> documentCounts,
-                        OutputCollector<Text, Text> outputCollector,
+                        OutputCollector<Text, List<DocumentWordPair>> outputCollector,
                         Reporter reporter) throws IOException
         {
             // TODO: Find the index file(s) that may have the counts
             // for the terms we want. Find the term-list mappings
             // for the things we're searching for.
-            // Then, maybe use a combiner to aggregate all a document's
-            // matching terms into a singular "rank" value
-            // Then, reduce the ranks into an ordered list
+
+            //if (searchTermList.contains(term)
+            //  outputCollector.collect(term, documentCounts);
+            // Is that sufficient? Or do we want to collect them differently?
         }
     }
 
 
-    // TODO: Still don't know what the input types should be for this phase
     public static class SearchCombine extends MapReduceBase
-            implements Reducer<Text, Text, LongWritable, LongWritable>
+            implements Reducer<Text, List<DocumentWordPair>, LongWritable, LongWritable>
     {
         @Override
-        public void reduce(Text text,
-                           Iterator<Text> iterator,
+        public void reduce(Text term,
+                           Iterator<List<DocumentWordPair>> documentCounts,
                            OutputCollector<LongWritable, LongWritable> outputCollector,
                            Reporter reporter) throws IOException
         {
@@ -59,6 +59,8 @@ public class HadoopSearcher
                            Reporter reporter) throws IOException
         {
             // TODO: Need to produce an ordered list, or at least give the most suitable document path
+            // But the DocumentWordPairs don't store the document path.
+            // So do we have some other module telling us the ID-path mappings?
         }
     }
 }
