@@ -7,6 +7,11 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.FileSplit;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 
 public class WordCount {
@@ -30,7 +35,7 @@ public class WordCount {
         public void map(LongWritable key, Text value, Context context)
                 throws IOException, InterruptedException {
             /*Get the name of the file using context.getInputSplit()method*/
-            String fileName = ((org.apache.hadoop.mapreduce.lib.input.FileSplit) context.getInputSplit()).getPath().getName();
+            String fileName = ((FileSplit) context.getInputSplit()).getPath().getName();
             String line = value.toString();
 //Split the line in words
             String words[] = line.split(" ");
@@ -102,11 +107,11 @@ public class WordCount {
         //Defining the output value class for the mapper
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
-        job.setInputFormatClass(org.apache.hadoop.mapreduce.lib.input.TextInputFormat.class);
-        job.setOutputFormatClass(org.apache.hadoop.mapreduce.lib.output.TextOutputFormat.class);
+        job.setInputFormatClass(TextInputFormat.class);
+        job.setOutputFormatClass(TextOutputFormat.class);
         Path outputPath = new Path(args[1]);
-        org.apache.hadoop.mapreduce.lib.input.FileInputFormat.addInputPath(job, new Path(args[0]));
-        org.apache.hadoop.mapreduce.lib.output.FileOutputFormat.setOutputPath(job, outputPath);
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, outputPath);
         //deleting the output path automatically from hdfs so that we don't have delete it explicitly
         outputPath.getFileSystem(conf2).delete(outputPath);
         //exiting the job only if the flag value becomes false
