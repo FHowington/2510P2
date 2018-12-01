@@ -1,7 +1,6 @@
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.*;
-
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
