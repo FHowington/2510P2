@@ -1,6 +1,9 @@
 import java.io.IOException;
+import java.net.URI;
 import java.util.*;
+
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.Job;
@@ -16,7 +19,9 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 public class WordCount {
 
     public static class Map extends Mapper<LongWritable, Text, Text, Text> {
-        public Map(){}
+        public Map() {
+        }
+
         public void map(LongWritable key, Text value, Context context)
                 throws IOException, InterruptedException {
             /*Get the name of the file using context.getInputSplit()method*/
@@ -25,7 +30,7 @@ public class WordCount {
             //Split the line in words
             String words[] = line.split(" ");
             for (String s : words) {
-            //for each word emit word as key and file name as value
+                //for each word emit word as key and file name as value
                 context.write(new Text(s), new Text(fileName));
             }
         }
@@ -33,7 +38,9 @@ public class WordCount {
 
 
     public static class Reduce extends Reducer<Text, Text, Text, Text> {
-        public Reduce(){}
+        public Reduce() {
+        }
+
         public void reduce(Text key, Iterable<Text> values, Context context)
                 throws IOException, InterruptedException {
             /*Declare the Hash Map to store File name as key to compute and store number of times the filename is occurred for as value*/
@@ -42,7 +49,7 @@ public class WordCount {
             for (Text t : values) {
                 String str = t.toString();
                 /*Check if file name is present in the HashMap ,if File name is not present then add the Filename to the HashMap and increment the counter by one , This condition will be satisfied on first occurrence of that word*/
-                if (m != null && m.get(str) != null) {
+                if (m.get(str) != null) {
                     count = (int) m.get(str);
                     m.put(str, ++count);
                 } else {
@@ -56,8 +63,8 @@ public class WordCount {
     }
 
     public static void main(String[] args) throws Exception {
-        Configuration conf2 = new Configuration();
-        Job job = new Job(conf2, "UseCase1");
+        Configuration conf = new Configuration();
+        Job job = new Job(conf, "UseCase1");
         //Defining the output key and value class for the mapper
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(Text.class);
@@ -73,7 +80,12 @@ public class WordCount {
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, outputPath);
         //deleting the output path automatically from hdfs so that we don't have delete it explicitly
-        outputPath.getFileSystem(conf2).delete(outputPath);
+        FileSystem hdfs = FileSystem.get(conf);
+
+        if (hdfs.exists(outputPath)) {
+            hdfs.delete(outputPath, true);
+        }
+
         //exiting the job only if the flag value becomes false
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
