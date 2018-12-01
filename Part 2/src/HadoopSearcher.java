@@ -1,9 +1,14 @@
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.SequenceFile;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.HashMap;
 
 
 /**
@@ -12,6 +17,27 @@ import java.util.List;
  */
 public class HadoopSearcher
 {
+    static HashMap<Text, List<DocumentWordPair>> Index;
+
+    // Overwrite the in-memory index with the contents of the
+    // SequenceFile specified by the given path
+    public static void readIndexFile(Path filePath, Configuration config)
+        throws IOException
+    {
+        Index = new HashMap<>();
+
+        Text key = new Text();
+        List<DocumentWordPair> value = new ArrayList<>();
+
+        SequenceFile.Reader.Option file = SequenceFile.Reader.file(filePath);
+        SequenceFile.Reader reader = new SequenceFile.Reader(config, file);
+
+        //while(reader.next(key, value))
+        //{
+
+        //}
+    }
+
     // TODO: Use the SequenceFile input format to read the KVPs directly
     // (we'll need to use the same output format for the indexer)
     public static class SearchMap extends MapReduceBase
