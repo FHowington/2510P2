@@ -50,7 +50,7 @@ public class WordCount {
                     m.put(str, 1);
                 }
             }
-            /* Emit word and [file1→count of the word1 in file1 , file2→count of the word1 in file2 ………] as output*/
+            /* Emit word and [file1->count of the word1 in file1 , file2->count of the word1 in file2... ] as output*/
             context.write(key, new Text(m.toString()));
         }
     }
