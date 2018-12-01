@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.util.*;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.*;
@@ -16,20 +15,6 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 public class WordCount {
 
-//    public static class Map extends MapReduceBase implements Mapper<LongWritable, Text, Text, IntWritable> {
-//        private final static IntWritable one = new IntWritable(1);
-//        private Text word = new Text();
-//
-//        public void map(LongWritable key, Text value, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
-//            String line = value.toString();
-//            StringTokenizer tokenizer = new StringTokenizer(line);
-//            while (tokenizer.hasMoreTokens()) {
-//                word.set(tokenizer.nextToken());
-//                output.collect(word, one);
-//            }
-//        }
-//    }
-
     public static class Map extends Mapper<LongWritable, Text, Text, Text> {
         public Map(){}
         public void map(LongWritable key, Text value, Context context)
@@ -37,24 +22,14 @@ public class WordCount {
             /*Get the name of the file using context.getInputSplit()method*/
             String fileName = ((FileSplit) context.getInputSplit()).getPath().getName();
             String line = value.toString();
-//Split the line in words
+            //Split the line in words
             String words[] = line.split(" ");
             for (String s : words) {
-//for each word emit word as key and file name as value
+            //for each word emit word as key and file name as value
                 context.write(new Text(s), new Text(fileName));
             }
         }
     }
-
-//    public static class Reduce extends MapReduceBase implements Reducer<Text, IntWritable, Text, IntWritable> {
-//        public void reduce(Text key, Iterator<IntWritable> values, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
-//            int sum = 0;
-//            while (values.hasNext()) {
-//                sum += values.next().get();
-//            }
-//            output.collect(key, new IntWritable(sum));
-//        }
-//    }
 
 
     public static class Reduce extends Reducer<Text, Text, Text, Text> {
@@ -81,21 +56,6 @@ public class WordCount {
     }
 
     public static void main(String[] args) throws Exception {
-//        JobConf conf = new JobConf(WordCount.class);
-//        conf.setJobName("wordcount");
-//
-//        conf.setOutputKeyClass(Text.class);
-//        conf.setOutputValueClass(IntWritable.class);
-//
-//        conf.setMapperClass(Map.class);
-//        conf.setCombinerClass(Reduce.class);
-//        conf.setReducerClass(Reduce.class);
-//        conf.setInputFormat(TextInputFormat.class);
-//        conf.setOutputFormat(TextOutputFormat.class);
-//        FileInputFormat.setInputPaths(conf, new Path(args[0]));
-//        FileOutputFormat.setOutputPath(conf, new Path(args[1]));
-//        JobClient.runJob(conf);
-
         Configuration conf2 = new Configuration();
         Job job = new Job(conf2, "UseCase1");
         //Defining the output key and value class for the mapper
