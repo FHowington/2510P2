@@ -1,10 +1,11 @@
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.MapReduceBase;
-import org.apache.hadoop.mapred.Mapper;
-import org.apache.hadoop.mapred.OutputCollector;
-import org.apache.hadoop.mapred.Reporter;
-import org.apache.hadoop.mapred.Reducer;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.*;
+import org.apache.hadoop.mapreduce.lib.output.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -14,17 +15,52 @@ import java.util.*;
  */
 public class HadoopIndexer
 {
+    public static void main(String args[])
+            throws IOException, InterruptedException, ClassNotFoundException
+    {
+        Job j = configureIndexJob(new Path(args[0]), new Path(args[1]));
+        System.exit(j.waitForCompletion(true) ? 0 : 1);
+    }
+
+    // Run the map/reduce job(s) necessary for indexing the documents
+    public static Job configureIndexJob(Path inputFolder, Path outputPath)
+            throws IOException
+    {
+        Job job = Job.getInstance();
+        job.setJarByClass(HadoopIndexer.class);
+        job.setJobName("IndexDocuments");
+
+        job.setMapperClass(IndexMap.class);
+        job.setReducerClass(IndexReduce.class);
+
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(DocumentWordPair.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(List.class);
+
+        job.setInputFormatClass(TextInputFormat.class);
+        job.setOutputFormatClass(SequenceFileOutputFormat.class);
+
+        FileInputFormat.addInputPath(job, inputFolder);
+        FileOutputFormat.setOutputPath(job, outputPath);
+
+        return job;
+        //deleting the output path automatically from hdfs so that we don't have delete it explicitly
+        //outputPath.getFileSystem(conf2).delete(outputPath);
+        //exiting the job only if the flag value becomes false
+        //System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+
+
     // This class is meant to map a collection of documents to nodes
     // which will produce a word-document-count key-value pair
-    public static class IndexMap extends MapReduceBase
-            implements Mapper<LongWritable, Text, Text, DocumentWordPair>
+    public static class IndexMap extends Mapper<LongWritable, Text, Text, DocumentWordPair>
     {
         @Override
-        public void map(LongWritable documentId,
-                        Text documentText,
-                        OutputCollector<Text, DocumentWordPair> outputCollector,
-                        Reporter reporter) throws IOException
+        public void map(LongWritable documentId, Text documentText, Context context)
+                throws IOException, InterruptedException
         {
+            String fileName = ((FileSplit) context.getInputSplit()).getPath().getName();
             // It is easier to count words in a document now, when
             // we have the documentId at our disposal, instead of
             // trying to aggregate them in a collect or reduce method
@@ -50,26 +86,23 @@ public class HadoopIndexer
             {
                 Text currentWord = new Text(word);
                 LongWritable count = new LongWritable(wordCounts.get(word));
-                outputCollector.collect(currentWord, new DocumentWordPair(documentId, currentWord, count));
+                context.write(currentWord, new DocumentWordPair(fileName, currentWord, count));
             }
         }
     }
 
     // This class is meant to reduce a collection of document-word-counts
     // into an index/list searchable by other Map/Reducers
-    public static class IndexReduce extends MapReduceBase
-            implements Reducer<Text, DocumentWordPair, Text, List<DocumentWordPair>>
+    public static class IndexReduce extends Reducer<Text, DocumentWordPair, Text, List<DocumentWordPair>>
     {
         @Override
-        public void reduce(Text term,
-                           Iterator<DocumentWordPair> documentCounts,
-                           OutputCollector<Text, List<DocumentWordPair>> outputCollector,
-                           Reporter reporter) throws IOException
+        public void reduce(Text term, Iterable<DocumentWordPair> documentCounts, Context context)
+                throws IOException, InterruptedException
         {
             List<DocumentWordPair> output = new LinkedList<>();
-            while (documentCounts.hasNext())
+            for (DocumentWordPair count : documentCounts)
             {
-                output.add(documentCounts.next());
+                output.add(count);
             }
 
             // Before writing the list of counts to a file,
@@ -84,16 +117,11 @@ public class HadoopIndexer
                         return 1;
 
                     // Then by document ID in the event of a tie
-                    if (left.id.get() > right.id.get())
-                        return -1;
-                    if (left.id.get() < right.id.get())
-                        return 1;
-
-                    return 0;
+                    return left.filePath.compareTo(right.filePath);
                 }
             });
 
-            outputCollector.collect(term, output);
+            context.write(term, output);
         }
     }
 }
@@ -104,15 +132,15 @@ public class HadoopIndexer
  */
 class DocumentWordPair
 {
-    public DocumentWordPair(LongWritable id, Text word, LongWritable count)
+    public DocumentWordPair(String path, Text word, LongWritable count)
     {
-        this.id = id;
+        this.filePath = path;
         this.word = word;
         this.count = count;
     }
 
     /** The document ID */
-    public LongWritable id;
+    public String filePath;
     /**
      * The term in the document being tracked by this pair.
      * This is likely unnecessary, considering how the mappers
