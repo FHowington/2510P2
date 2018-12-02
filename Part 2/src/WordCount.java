@@ -1,7 +1,5 @@
 import java.io.IOException;
-import java.net.URI;
 import java.util.*;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -39,6 +37,57 @@ public class WordCount {
 
     public static class Reduce extends Reducer<Text, Text, Text, Text> {
         public Reduce() {
+        }
+
+        public void reduce(Text key, Iterable<Text> values, Context context)
+                throws IOException, InterruptedException {
+            /*Declare the Hash Map to store File name as key to compute and store number of times the filename is occurred for as value*/
+            HashMap<String, Integer> m = new HashMap<>();
+            int count = 0;
+            for (Text t : values) {
+                String str = t.toString();
+                /*Check if file name is present in the HashMap ,if File name is not present then add the Filename to the HashMap and increment the counter by one , This condition will be satisfied on first occurrence of that word*/
+                if (m.get(str) != null) {
+                    count = (int) m.get(str);
+                    m.put(str, ++count);
+                } else {
+                    /*Else part will execute if file name is already added then just increase the count for that file name which is stored as key in the hash map*/
+                    m.put(str, 1);
+                }
+            }
+            /* Emit word and [file1->count of the word1 in file1 , file2->count of the word1 in file2... ] as output*/
+
+            StringBuilder result = new StringBuilder();
+            for(java.util.Map.Entry<String,Integer> entry: m.entrySet()){
+                result.append(entry.getKey()).append("=");
+                result.append(entry.getValue());
+                result.append(" ");
+            }
+            context.write(key, new Text(result.toString()));
+        }
+    }
+
+    public static class Map2 extends Mapper<LongWritable, Text, Text, Text> {
+        public Map2() {
+        }
+        // How do we map a mapping? Each line has a single word, and multiple files mapped to that word with an occurrence #
+        public void map(LongWritable key, Text value, Context context)
+                throws IOException, InterruptedException {
+            /*Get the name of the file using context.getInputSplit()method*/
+            String fileName = ((FileSplit) context.getInputSplit()).getPath().getName();
+            String line = value.toString();
+            //Split the line in words
+            String words[] = line.split(" ");
+            for (String s : words) {
+                //for each word emit word as key and file name as value
+                context.write(new Text(s), new Text(fileName));
+            }
+        }
+    }
+
+
+    public static class Reduce2 extends Reducer<Text, Text, Text, Text> {
+        public Reduce2() {
         }
 
         public void reduce(Text key, Iterable<Text> values, Context context)
