@@ -36,7 +36,7 @@ public class HadoopIndexer
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(DocumentWordPair.class);
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(List.class);
+        job.setOutputValueClass(IndexEntry.class);
 
         job.setInputFormatClass(TextInputFormat.class);
         job.setOutputFormatClass(SequenceFileOutputFormat.class);
