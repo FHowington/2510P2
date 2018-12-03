@@ -1,16 +1,11 @@
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.SequenceFile;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.*;
-import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.HashMap;
 
 
@@ -33,6 +28,9 @@ public class HadoopSearcher
     public static void readIndexFile(Path filePath, Configuration config)
         throws IOException
     {
+        // TODO: This assumes we're using the serialization in IndexEntry, etc.
+        // It's not working right now, so we'll need to use something else if we
+        // want to test the searcher immediately
         Index = new HashMap<>();
 
         Text key = new Text();
@@ -55,54 +53,51 @@ public class HadoopSearcher
         }
     }
 
-    // TODO: Use the SequenceFile input format to read the KVPs directly
-    // (we'll need to use the same output format for the indexer)
-    public static class SearchMap extends MapReduceBase
-            implements Mapper<Text, List<DocumentWordPair>, Text, List<DocumentWordPair>>
+    // TODO: Assume the index is already filled out by some other code
+    public static class SearchMap extends Mapper<LongWritable, Text, Text, DocumentWordPair>
     {
         @Override
-        public void map(Text term,
-                        List<DocumentWordPair> documentCounts,
-                        OutputCollector<Text, List<DocumentWordPair>> outputCollector,
-                        Reporter reporter) throws IOException
+        public void map(LongWritable termId, Text searchTerm, Context context)
+                throws IOException, InterruptedException
         {
-            // TODO: Find the index file(s) that may have the counts
-            // for the terms we want. Find the term-list mappings
-            // for the things we're searching for.
+            /*
+            * Assuming we pass a list of search terms to the mapper,
+            * we will try to find all the documents that have the term
+            * we're looking for.
+            * To get a document's rank, we want to sum the counts of
+            * all search terms. We will do this in the reduce step
+            */
 
-            //if (searchTermList.contains(term)
-            //  outputCollector.collect(term, documentCounts);
-            // Is that sufficient? Or do we want to collect them differently?
+            DocumentWordPair[] matchingDocuments = Index.get(searchTerm);
+            if (matchingDocuments != null)
+            {
+                for (DocumentWordPair doc : matchingDocuments)
+                {
+                    context.write(new Text(doc.filePath), doc);
+                }
+            }
         }
     }
 
 
-    public static class SearchCombine extends MapReduceBase
-            implements Reducer<Text, List<DocumentWordPair>, LongWritable, LongWritable>
+    public static class SearchReduce extends Reducer<Text, DocumentWordPair, Text, LongWritable>
     {
         @Override
-        public void reduce(Text term,
-                           Iterator<List<DocumentWordPair>> documentCounts,
-                           OutputCollector<LongWritable, LongWritable> outputCollector,
-                           Reporter reporter) throws IOException
+        public void reduce(Text fileName, Iterable<DocumentWordPair> termCounts, Context context)
+                throws IOException, InterruptedException
         {
-            // TODO: Maybe aggregate all a document's matching terms to get its "rank"
-        }
-    }
+            LongWritable sum = new LongWritable(0);
 
+            // Iterate over all matching terms for this document, and sum their counts
+            for (DocumentWordPair term : termCounts)
+            {
+                sum.set(sum.get() + term.count.get());
+            }
 
-    public static class SearchReduce extends MapReduceBase
-            implements Reducer<LongWritable, LongWritable, Text, Text>
-    {
-        @Override
-        public void reduce(LongWritable longWritable,
-                           Iterator<LongWritable> iterator,
-                           OutputCollector<Text, Text> outputCollector,
-                           Reporter reporter) throws IOException
-        {
-            // TODO: Need to produce an ordered list, or at least give the most suitable document path
-            // But the DocumentWordPairs don't store the document path.
-            // So do we have some other module telling us the ID-path mappings?
+            // TODO: Now, we output a file path and its rank. Some other module will need to
+            // sort and display these results, unless we turn this SearchReduce into
+            // SearchCombine, and come up with another reduce that sorts this output somehow
+            context.write(fileName, sum);
         }
     }
 }
