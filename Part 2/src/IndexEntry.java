@@ -3,12 +3,46 @@ import org.apache.hadoop.io.*;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.util.List;
 
 public class IndexEntry extends ArrayWritable
 {
-    public IndexEntry()
+    public IndexEntry(DocumentWordPair[] pairs)
     {
-        super(IndexEntry.class);
+        super(IndexEntry.class, pairs);
+    }
+
+    public IndexEntry(List<DocumentWordPair> pairs)
+    {
+        this((DocumentWordPair[]) pairs.toArray());
+    }
+
+    @Override
+    public Class getValueClass() {
+        return DocumentWordPair.class;
+    }
+
+    @Override
+    public void write(DataOutput out) throws IOException {
+        Writable[] values = get();
+
+        out.writeInt(values.length);
+        for (Writable v : values)
+        {
+            v.write(out);
+        }
+    }
+
+    @Override
+    public void readFields(DataInput in) throws IOException {
+        int length = in.readInt();
+        DocumentWordPair[] values = new DocumentWordPair[length];
+
+        for (int i=0; i < length; i++)
+        {
+            values[i] = new DocumentWordPair();
+            values[i].readFields(in);
+        }
     }
 }
 

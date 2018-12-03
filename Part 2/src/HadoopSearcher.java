@@ -1,9 +1,12 @@
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.SequenceFile;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.*;
+import org.apache.hadoop.mapreduce.Job;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,7 +20,13 @@ import java.util.HashMap;
  */
 public class HadoopSearcher
 {
-    static HashMap<Text, List<DocumentWordPair>> Index;
+    static HashMap<Text, DocumentWordPair[]> Index;
+
+    public static void main(String args[])
+            throws IOException, InterruptedException, ClassNotFoundException
+    {
+        readIndexFile(new Path(args[0]), new Configuration());
+    }
 
     // Overwrite the in-memory index with the contents of the
     // SequenceFile specified by the given path
@@ -27,15 +36,23 @@ public class HadoopSearcher
         Index = new HashMap<>();
 
         Text key = new Text();
-        List<DocumentWordPair> value = new ArrayList<>();
+        IndexEntry value = new IndexEntry(new DocumentWordPair[0]);
 
         SequenceFile.Reader.Option file = SequenceFile.Reader.file(filePath);
         SequenceFile.Reader reader = new SequenceFile.Reader(config, file);
 
-        //while(reader.next(key, value))
-        //{
+        while(reader.next(key, value))
+        {
+            DocumentWordPair[] values = (DocumentWordPair[])value.get();
+            Index.put(key, values);
 
-        //}
+            System.out.print("\n" + key.toString() + "\t");
+            for (DocumentWordPair p : values)
+            {
+                System.out.print("{" + p.filePath + ":" + p.count.get() + "}, ");
+            }
+            System.out.println();
+        }
     }
 
     // TODO: Use the SequenceFile input format to read the KVPs directly
