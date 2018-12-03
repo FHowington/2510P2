@@ -36,7 +36,7 @@ public class HadoopIndexer
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(DocumentWordPair.class);
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(List.class);
+        job.setOutputValueClass(IndexEntry.class);
 
         job.setInputFormatClass(TextInputFormat.class);
         job.setOutputFormatClass(SequenceFileOutputFormat.class);
@@ -45,10 +45,6 @@ public class HadoopIndexer
         FileOutputFormat.setOutputPath(job, outputPath);
 
         return job;
-        //deleting the output path automatically from hdfs so that we don't have delete it explicitly
-        //outputPath.getFileSystem(conf2).delete(outputPath);
-        //exiting the job only if the flag value becomes false
-        //System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
 
 
@@ -93,7 +89,7 @@ public class HadoopIndexer
 
     // This class is meant to reduce a collection of document-word-counts
     // into an index/list searchable by other Map/Reducers
-    public static class IndexReduce extends Reducer<Text, DocumentWordPair, Text, List<DocumentWordPair>>
+    public static class IndexReduce extends Reducer<Text, DocumentWordPair, Text, IndexEntry>
     {
         @Override
         public void reduce(Text term, Iterable<DocumentWordPair> documentCounts, Context context)
@@ -121,7 +117,7 @@ public class HadoopIndexer
                 }
             });
 
-            context.write(term, output);
+            context.write(term, new IndexEntry(output));
         }
     }
 }
