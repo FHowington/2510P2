@@ -95,7 +95,7 @@ public class HadoopIndexer
         public void reduce(Text term, Iterable<DocumentWordPair> documentCounts, Context context)
                 throws IOException, InterruptedException
         {
-            List<DocumentWordPair> output = new LinkedList<>();
+            List<DocumentWordPair> output = new ArrayList<>();
             for (DocumentWordPair count : documentCounts)
             {
                 output.add(count);
@@ -117,7 +117,7 @@ public class HadoopIndexer
                 }
             });
 
-            context.write(term, new IndexEntry(output));
+            context.write(term, new IndexEntry(output.toArray(new DocumentWordPair[0])));
         }
     }
 }

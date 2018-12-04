@@ -3,7 +3,6 @@ import org.apache.hadoop.io.*;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 
 public class IndexEntry extends ArrayWritable
@@ -11,11 +10,6 @@ public class IndexEntry extends ArrayWritable
     public IndexEntry(DocumentWordPair[] pairs)
     {
         super(IndexEntry.class, pairs);
-    }
-
-    public IndexEntry(List<DocumentWordPair> pairs)
-    {
-        this((DocumentWordPair[]) pairs.toArray());
     }
 
     @Override
