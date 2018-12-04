@@ -4,6 +4,10 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.SequenceFile;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.*;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,6 +25,11 @@ public class HadoopSearcher
             throws IOException, InterruptedException, ClassNotFoundException
     {
         readIndexFile(new Path(args[0]), new Configuration());
+
+        // TODO: Do we need to convert our search terms into a comma-separated list?
+        // Or will we type them in ourselves, so that we can assume args[0] is quoted, etc.?
+        Job j = configureSearchJob(args[0], new Path(args[1]));
+        System.exit(j.waitForCompletion(true) ? 0 : 1);
     }
 
     // Overwrite the in-memory index with the contents of the
@@ -51,6 +60,32 @@ public class HadoopSearcher
             }
             System.out.println();
         }
+    }
+
+    // Input terms must be comma-separated
+    public static Job configureSearchJob(String inputTerms, Path outputPath)
+            throws IOException
+    {
+        Job job = Job.getInstance();
+        job.setJarByClass(HadoopSearcher.class);
+        job.setJobName("SearchDocuments");
+
+        job.setMapperClass(SearchMap.class);
+        job.setCombinerClass(SearchCombine.class);
+        job.setReducerClass(SearchReduce.class);
+
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(DocumentWordPair.class);
+        job.setOutputKeyClass(LongWritable.class);
+        job.setOutputValueClass(Text.class);
+
+        job.setInputFormatClass(TextInputFormat.class);
+        job.setOutputFormatClass(TextOutputFormat.class);
+
+        TextInputFormat.addInputPaths(job, inputTerms);
+        FileOutputFormat.setOutputPath(job, outputPath);
+
+        return job;
     }
 
     // TODO: Assume the index is already filled out by some other code
