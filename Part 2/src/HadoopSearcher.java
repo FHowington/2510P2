@@ -79,8 +79,8 @@ public class HadoopSearcher
         }
     }
 
-
-    public static class SearchReduce extends Reducer<Text, DocumentWordPair, Text, LongWritable>
+    // Compute a document's rank, and emit the rank-filename pair to the next phase
+    public static class SearchCombine extends Reducer<Text, DocumentWordPair, LongWritable, Text>
     {
         @Override
         public void reduce(Text fileName, Iterable<DocumentWordPair> termCounts, Context context)
@@ -94,10 +94,25 @@ public class HadoopSearcher
                 sum.set(sum.get() + term.count.get());
             }
 
-            // TODO: Now, we output a file path and its rank. Some other module will need to
-            // sort and display these results, unless we turn this SearchReduce into
-            // SearchCombine, and come up with another reduce that sorts this output somehow
-            context.write(fileName, sum);
+            context.write(sum, fileName);
         }
     }
+
+    // When the splits are sent from the combiner to the reducer, they will be sorted.
+    // So, by the time this class executes its code, Hadoop will have already sorted
+    // our output. We are okay to emit the results as we find them (if we only have
+    // one reducer, that is).
+    public static class SearchReduce extends Reducer<LongWritable, Text, LongWritable, Text>
+    {
+        @Override
+        public void reduce(LongWritable rank, Iterable<Text> fileNames, Context context)
+                throws IOException, InterruptedException
+        {
+            for (Text fileName : fileNames)
+            {
+                context.write(rank, fileName);
+            }
+        }
+    }
+
 }
