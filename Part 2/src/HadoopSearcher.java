@@ -1,19 +1,13 @@
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
-import org.apache.hadoop.fs.permission.FsPermission;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.SequenceFile;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.*;
-import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
-import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
-import org.apache.hadoop.util.Progressable;
+import org.apache.hadoop.mapreduce.lib.input.*;
+import org.apache.hadoop.mapreduce.lib.output.*;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URI;
 import java.util.HashMap;
 
 
@@ -49,9 +43,7 @@ public class HadoopSearcher
         Text key = new Text();
         IndexEntry value = new IndexEntry(new DocumentWordPair[0]);
 
-        FileSystem hdfs = FileSystem.get(config);
-        SequenceFile.Reader.Option file = SequenceFile.Reader.stream(hdfs.open(filePath));
-                //SequenceFile.Reader.file(filePath);
+        SequenceFile.Reader.Option file = SequenceFile.Reader.file(filePath);
         SequenceFile.Reader reader = new SequenceFile.Reader(config, file);
 
         while(reader.next(key, value))
@@ -66,6 +58,7 @@ public class HadoopSearcher
             }
             System.out.println();
         }
+        reader.close();
     }
 
     // Input terms must be comma-separated
