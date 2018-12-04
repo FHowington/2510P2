@@ -73,7 +73,7 @@ public class HadoopSearcher
             {
                 for (DocumentWordPair doc : matchingDocuments)
                 {
-                    context.write(new Text(doc.filePath), doc);
+                    context.write(doc.filePath, doc);
                 }
             }
         }

@@ -56,7 +56,7 @@ public class HadoopIndexer
         public void map(LongWritable documentId, Text documentText, Context context)
                 throws IOException, InterruptedException
         {
-            String fileName = ((FileSplit) context.getInputSplit()).getPath().getName();
+            Text fileName = new Text(((FileSplit) context.getInputSplit()).getPath().getName());
             // It is easier to count words in a document now, when
             // we have the documentId at our disposal, instead of
             // trying to aggregate them in a collect or reduce method

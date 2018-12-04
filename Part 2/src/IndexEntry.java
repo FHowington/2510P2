@@ -4,6 +4,7 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class IndexEntry extends ArrayWritable
 {
@@ -48,44 +49,83 @@ public class IndexEntry extends ArrayWritable
 
 /**
  * This class is a simple container to hold a term's "posting"
- * (using the verbiage of the given PowerPoint slides)
+ * (using the verbiage of the given PowerPoint slides).
+ *
+ * To be used as a ValueType in a map/reduce operation, this
+ * class must implement Writable. To be used as a KeyType,
+ * it must implement WritableComparable, which implements Writable.
  */
-class DocumentWordPair implements Writable
+class DocumentWordPair implements WritableComparable<DocumentWordPair>
 {
-    public DocumentWordPair(String path, Text word, LongWritable count)
+    public DocumentWordPair(Text path, Text word, LongWritable count)
     {
         this.filePath = path;
         this.word = word;
         this.count = count;
     }
     // Empty constructor for serialization
-    public DocumentWordPair() {}
+    public DocumentWordPair()
+    {
+        filePath = new Text();
+        word = new Text();
+        count = new LongWritable();
+    }
 
-    /** The document ID */
-    public String filePath;
-    /**
-     * The term in the document being tracked by this pair.
-     * This is likely unnecessary, considering how the mappers
-     * and reducers keep track of the word as the key already
-     */
+    /** The document URL */
+    public Text filePath;
+    /** The term in the document being tracked by this pair */
     public Text word;
-    /** The number of occurrences of the word in the document*/
+    /** The number of occurrences of the word in the document */
     public LongWritable count;
 
-
+    // --- Writable interface methods ---
     @Override
     public void write(DataOutput output) throws IOException
     {
-        output.writeBytes(filePath);
-        output.writeBytes(word.toString());
-        output.writeLong(count.get());
+        filePath.write(output);
+        word.write(output);
+        count.write(output);
     }
 
     @Override
     public void readFields(DataInput input) throws IOException
     {
-        filePath = WritableUtils.readString(input);
-        word = new Text(WritableUtils.readString(input));
-        count = new LongWritable(input.readLong());
+        filePath.readFields(input);
+        word.readFields(input);
+        count.readFields(input);
+    }
+
+    // --- WritableComparable interface methods/necessities ---
+    @Override
+    public int compareTo(DocumentWordPair o)
+    {
+        // Sort by filePath, then by word, then by count
+        int comparisonResult = filePath.compareTo(o.filePath);
+        if (comparisonResult == 0)
+        {
+            comparisonResult = word.compareTo(o.word);
+            if (comparisonResult == 0)
+            {
+                comparisonResult = count.compareTo(o.count);
+            }
+        }
+
+        return comparisonResult;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (o instanceof DocumentWordPair)
+        {
+            return this.compareTo((DocumentWordPair) o) == 0;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(filePath, word, count);
     }
 }
