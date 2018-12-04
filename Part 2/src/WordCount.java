@@ -1,10 +1,8 @@
-import java.io.IOException;
-import java.util.*;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.*;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -14,6 +12,9 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class WordCount {
 
@@ -70,8 +71,8 @@ public class WordCount {
         }
     }
 
-    public static class Map2 extends Mapper<LongWritable, Text, Text, Text> {
-        public Map2() {
+    public static class MapIndex extends Mapper<LongWritable, Text, Text, Text> {
+        public MapIndex() {
         }
 
         // How do we map a mapping? Each line has a single word, and multiple files mapped to that word with an occurrence #
@@ -81,7 +82,7 @@ public class WordCount {
             String line = value.toString();
             //Split the line in words
             String words[] = line.split("-");
-            Text keyWord = new Text(words[0].replaceAll("\\s+",""));
+            Text keyWord = new Text(words[0].replaceAll("\\s+", ""));
             String[] vals = words[1].split(" ");
             for (String s : vals) {
                 //for each word emit word as key and file name as value
@@ -92,8 +93,8 @@ public class WordCount {
     }
 
 
-    public static class Reduce2 extends Reducer<Text, Text, Text, Text> {
-        public Reduce2() {
+    public static class ReduceIndex extends Reducer<Text, Text, Text, Text> {
+        public ReduceIndex() {
         }
 
         public void reduce(Text key, Iterable<Text> values, Context context)
@@ -128,15 +129,11 @@ public class WordCount {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        // Plan is this: Keep master inverted index in wordcount/index
-        // When new file is loaded, delete whatever is in wordcount/output, put result into index? from normal map
-        // then run map on
-
-
-        if (args[2].equals("1")) {
-            Configuration conf = new Configuration();
-            Job job = new Job(conf, "UseCase1");
+    private static synchronized boolean mapNew(String newFile) {
+        Configuration conf = new Configuration();
+        Job job;
+        try {
+            job = new Job(conf, "UseCase1");
             //Defining the output key and value class for the mapper
             job.setMapOutputKeyClass(Text.class);
             job.setMapOutputValueClass(Text.class);
@@ -148,50 +145,97 @@ public class WordCount {
             job.setOutputValueClass(Text.class);
             job.setInputFormatClass(TextInputFormat.class);
             job.setOutputFormatClass(TextOutputFormat.class);
-            Path outputPath = new Path(args[1]);
-            FileInputFormat.addInputPath(job, new Path(args[0]));
+            Path outputPath = new Path("wordcount/output");
+            FileInputFormat.addInputPath(job, new Path(newFile));
             FileOutputFormat.setOutputPath(job, outputPath);
             //deleting the output path automatically from hdfs so that we don't have delete it explicitly
             FileSystem hdfs = FileSystem.get(conf);
 
+
             if (hdfs.exists(outputPath)) {
                 hdfs.delete(outputPath, true);
             }
-            System.exit(job.waitForCompletion(true) ? 0 : 1);
 
-        } else if (args[2].equals("2")) {
-            Configuration conf = new Configuration();
-            Job job = new Job(conf, "UseCase1");
-            //Defining the output key and value class for the mapper
+            return job.waitForCompletion(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private static synchronized boolean mergeIndex() {
+        Configuration conf = new Configuration();
+        Job job;
+        try {
+            job = new Job(conf, "UseCase2");
             job.setMapOutputKeyClass(Text.class);
             job.setMapOutputValueClass(Text.class);
             job.setJarByClass(WordCount.class);
             FileSystem hdfs = FileSystem.get(conf);
             // Move output to same folder as current index
             hdfs.rename(new Path("wordcount/output/part-r-00000"), new Path("wordcount/index/tempindex"));
-            job.setMapperClass(Map2.class);
-            job.setReducerClass(Reduce2.class);
+            job.setMapperClass(MapIndex.class);
+            job.setReducerClass(ReduceIndex.class);
             //Defining the output value class for the mapper
             job.setOutputKeyClass(Text.class);
             job.setOutputValueClass(Text.class);
             job.setInputFormatClass(TextInputFormat.class);
             job.setOutputFormatClass(TextOutputFormat.class);
             Path outputPath = new Path("wordcount/tempresult");
-            FileInputFormat.addInputPath(job, new Path(args[0]));
+            FileInputFormat.addInputPath(job, new Path("wordcount/index"));
             FileOutputFormat.setOutputPath(job, outputPath);
-
             //deleting the output path automatically from hdfs so that we don't have delete it explicitly
             if (hdfs.exists(outputPath)) {
                 hdfs.delete(outputPath, true);
             }
-            System.exit(job.waitForCompletion(true) ? 0 : 1);
-        } else {
-            // Now, we need to delete everything in the index folder, move result stored in tempresult to this folder
-            Configuration conf = new Configuration();
+            return job.waitForCompletion(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+        //Defining the output key and value class for the mapper
+    }
+
+    private static synchronized void cleanup() {
+        // Now, we need to delete everything in the index folder, move result stored in tempresult to this folder
+        Configuration conf = new Configuration();
+        try {
             FileSystem hdfs = FileSystem.get(conf);
             hdfs.delete(new Path("wordcount/index/tempindex"), true);
             hdfs.delete(new Path("wordcount/index/index"), true);
             hdfs.rename(new Path("wordcount/tempresult/part-r-00000"), new Path("wordcount/index/index"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static synchronized void main(String[] args) {
+        // Plan is this: Keep master inverted index in wordcount/index
+        // When new file is loaded, delete whatever is in wordcount/output, put result into index? from normal map
+        // then run map on
+
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            switch (sc.next().toLowerCase()) {
+                case "help":
+                    System.out.println("Usage:\n" +
+                            "Index- Specify location of file on HDFS to index\n" +
+                            "Search- Search for terms within all indexed files\n" +
+                            "Q - quit");
+
+                case "index":
+                    System.out.println("Enter location of file to index on HDFS");
+                    if (mapNew(sc.next())) {
+                        if (mergeIndex()) {
+                            cleanup();
+                            System.out.println("Success");
+                        }
+                    }
+                    break;
+
+                case "q":
+                    return;
+            }
         }
     }
 
