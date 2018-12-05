@@ -7,6 +7,10 @@ import java.util.Objects;
 
 public class IndexEntry extends ArrayWritable
 {
+    public IndexEntry()
+    {
+        this(new DocumentWordPair[0]);
+    }
     public IndexEntry(DocumentWordPair[] pairs)
     {
         super(IndexEntry.class, pairs);
@@ -38,6 +42,8 @@ public class IndexEntry extends ArrayWritable
             values[i] = new DocumentWordPair();
             values[i].readFields(in);
         }
+
+        this.set(values);
     }
 }
 

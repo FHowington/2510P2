@@ -18,15 +18,14 @@ import java.util.HashMap;
 public class HadoopSearcher
 {
     static HashMap<Text, DocumentWordPair[]> Index;
+    static final String SearchTermKey = "SEARCH_TERMS";
 
     public static void main(String args[])
             throws IOException, InterruptedException, ClassNotFoundException
     {
-        readIndexFile(new Path(args[0]), new Configuration());
+        //readIndexFile(new Path(args[0]), new Configuration());
 
-        // TODO: Do we need to convert our search terms into a comma-separated list?
-        // Or will we type them in ourselves, so that we can assume args[0] is quoted, etc.?
-        Job j = configureSearchJob(args[0], new Path(args[1]));
+        Job j = configureSearchJob(args[0], new Path(args[1]), new Path(args[2]));
         System.exit(j.waitForCompletion(true) ? 0 : 1);
     }
 
@@ -35,9 +34,6 @@ public class HadoopSearcher
     public static void readIndexFile(Path filePath, Configuration config)
         throws IOException
     {
-        // TODO: This assumes we're using the serialization in IndexEntry, etc.
-        // It's not working right now, so we'll need to use something else if we
-        // want to test the searcher immediately
         Index = new HashMap<>();
 
         Text key = new Text();
@@ -62,52 +58,51 @@ public class HadoopSearcher
     }
 
     // Input terms must be comma-separated
-    public static Job configureSearchJob(String inputTerms, Path outputPath)
+    public static Job configureSearchJob(String inputTerms, Path indexPath, Path outputPath)
             throws IOException
     {
-        Job job = Job.getInstance();
+        Configuration c = new Configuration();
+        c.set(SearchTermKey, inputTerms);
+        Job job = Job.getInstance(c);
         job.setJarByClass(HadoopSearcher.class);
         job.setJobName("SearchDocuments");
 
         job.setMapperClass(SearchMap.class);
-        job.setCombinerClass(SearchCombine.class);
-        job.setReducerClass(SearchReduce.class);
+        job.setReducerClass(SearchCombine.class);
+        //job.setReducerClass(SearchReduce.class);
 
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(DocumentWordPair.class);
         job.setOutputKeyClass(LongWritable.class);
         job.setOutputValueClass(Text.class);
 
-        job.setInputFormatClass(TextInputFormat.class);
+        job.setInputFormatClass(SequenceFileInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
 
-        TextInputFormat.addInputPaths(job, inputTerms);
+        SequenceFileInputFormat.addInputPath(job, indexPath);
         FileOutputFormat.setOutputPath(job, outputPath);
 
         return job;
     }
 
-    // TODO: Assume the index is already filled out by some other code
-    public static class SearchMap extends Mapper<LongWritable, Text, Text, DocumentWordPair>
+
+    public static class SearchMap extends Mapper<Text, IndexEntry, Text, DocumentWordPair>
     {
         @Override
-        public void map(LongWritable termId, Text searchTerm, Context context)
+        public void map(Text term, IndexEntry entry, Context context)
                 throws IOException, InterruptedException
         {
-            /*
-            * Assuming we pass a list of search terms to the mapper,
-            * we will try to find all the documents that have the term
-            * we're looking for.
-            * To get a document's rank, we want to sum the counts of
-            * all search terms. We will do this in the reduce step
-            */
+            String searchTerms = context.getConfiguration().get(SearchTermKey);
+            String[] terms = searchTerms.split(" ");
 
-            DocumentWordPair[] matchingDocuments = Index.get(searchTerm);
-            if (matchingDocuments != null)
+            for(int i=0; i < terms.length; i++)
             {
-                for (DocumentWordPair doc : matchingDocuments)
+                if (terms[i].compareToIgnoreCase(term.toString()) == 0)
                 {
-                    context.write(doc.filePath, doc);
+                    for (DocumentWordPair doc : (DocumentWordPair[]) entry.get())
+                    {
+                        context.write(doc.filePath, doc);
+                    }
                 }
             }
         }
