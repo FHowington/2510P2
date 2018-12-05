@@ -1,14 +1,12 @@
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
 import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.SequenceFile;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.lib.input.*;
 import org.apache.hadoop.mapreduce.lib.output.*;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 
 /**
@@ -17,44 +15,14 @@ import java.util.HashMap;
  */
 public class HadoopSearcher
 {
-    static HashMap<Text, DocumentWordPair[]> Index;
+
     static final String SearchTermKey = "SEARCH_TERMS";
 
     public static void main(String args[])
             throws IOException, InterruptedException, ClassNotFoundException
     {
-        //readIndexFile(new Path(args[0]), new Configuration());
-
         Job j = configureSearchJob(args[0], new Path(args[1]), new Path(args[2]));
         System.exit(j.waitForCompletion(true) ? 0 : 1);
-    }
-
-    // Overwrite the in-memory index with the contents of the
-    // SequenceFile specified by the given path
-    public static void readIndexFile(Path filePath, Configuration config)
-        throws IOException
-    {
-        Index = new HashMap<>();
-
-        Text key = new Text();
-        IndexEntry value = new IndexEntry(new DocumentWordPair[0]);
-
-        SequenceFile.Reader.Option file = SequenceFile.Reader.file(filePath);
-        SequenceFile.Reader reader = new SequenceFile.Reader(config, file);
-
-        while(reader.next(key, value))
-        {
-            DocumentWordPair[] values = (DocumentWordPair[])value.get();
-            Index.put(key, values);
-
-            System.out.print("\n" + key.toString() + "\t");
-            for (DocumentWordPair p : values)
-            {
-                System.out.print("{" + p.filePath + ":" + p.count.get() + "}, ");
-            }
-            System.out.println();
-        }
-        reader.close();
     }
 
     // Input terms must be comma-separated

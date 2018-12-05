@@ -78,6 +78,15 @@ class DocumentWordPair implements WritableComparable<DocumentWordPair>
     /** The number of occurrences of the word in the document */
     public LongWritable count;
 
+    public boolean matchesDocumentAndWord(DocumentWordPair other)
+    {
+        if (other != null)
+        {
+            return filePath.equals(other.filePath) && word.equals(other.word);
+        }
+        return false;
+    }
+
     // --- Writable interface methods ---
     @Override
     public void write(DataOutput output) throws IOException
