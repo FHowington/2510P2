@@ -209,6 +209,37 @@ public class WordCount {
         }
     }
 
+    // Read the contents of the specified index file, and return the mapping
+    public static HashMap<Text, DocumentWordPair[]> readIndexFile(Path filePath, Configuration config, boolean verbose)
+            throws IOException
+    {
+        HashMap<Text, DocumentWordPair[]> index = new HashMap<>();
+
+        Text key = new Text();
+        IndexEntry value = new IndexEntry(new DocumentWordPair[0]);
+
+        SequenceFile.Reader.Option file = SequenceFile.Reader.file(filePath);
+        SequenceFile.Reader reader = new SequenceFile.Reader(config, file);
+
+        while(reader.next(key, value))
+        {
+            DocumentWordPair[] values = (DocumentWordPair[])value.get();
+            index.put(key, values);
+
+            if (verbose)
+            {
+                System.out.print("\n" + key.toString() + "\t");
+                for (DocumentWordPair p : values) {
+                    System.out.print("{" + p.filePath + ":" + p.count.get() + "}, ");
+                }
+                System.out.println();
+            }
+        }
+        reader.close();
+
+        return index;
+    }
+
     public static synchronized void main(String[] args) {
         // Plan is this: Keep master inverted index in wordcount/index
         // When new file is loaded, delete whatever is in wordcount/output, put result into index? from normal map
@@ -233,6 +264,11 @@ public class WordCount {
                             System.out.println("Success");
                         }
                     }
+                    break;
+
+                case "read":
+                    System.out.println("Enter location of file to read on HDFS");
+                    readIndexFile(new Path(sc.nextLine()), new Configuration(), true);
                     break;
 
                 case "q":
