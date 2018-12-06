@@ -216,16 +216,18 @@ public class WordCount {
 
         Scanner sc = new Scanner(System.in);
         while (true) {
-            switch (sc.next().toLowerCase()) {
+            System.out.println("Enter next command, or help for list of commands");
+            switch (sc.nextLine().toLowerCase()) {
                 case "help":
                     System.out.println("Usage:\n" +
                             "Index- Specify location of file on HDFS to index\n" +
                             "Search- Search for terms within all indexed files\n" +
                             "Q - quit");
+                    break;
 
                 case "index":
                     System.out.println("Enter location of file to index on HDFS");
-                    if (mapNew(sc.next())) {
+                    if (mapNew(sc.nextLine())) {
                         if (mergeIndex()) {
                             cleanup();
                             System.out.println("Success");

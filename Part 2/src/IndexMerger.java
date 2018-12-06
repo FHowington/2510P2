@@ -120,16 +120,7 @@ public class IndexMerger
                     // However, if this pair overwrites an existing one, we
                     // should not send the old value to the reducer
                     int existingSize = existingPairs.size();
-                    for (int i=0; i < existingSize; i++)
-                    {
-                        if (pair.matchesDocumentAndWord(existingPairs.get(i)))
-                        {
-                            existingPairs.remove(i);
-                            break;
-                            // There should only have been one match.
-                            // TODO: Does this assumption hold?
-                        }
-                    }
+
                 }
             }
 
