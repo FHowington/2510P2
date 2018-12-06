@@ -16,25 +16,27 @@ import java.util.List;
  */
 public class IndexMerger
 {
-    // The in-memory index; this should be the smaller of the two indices to be merged
-    static HashMap<Text, DocumentWordPair[]> Index;
+    // Since each map/reduce task could execute in its own JVM,
+    // we cannot rely on the tasks accessing shared memory.
+    // Each mapper needs to read the index file for itself
+    static final String NewIndexPathKey = "NEW_INDEX_PATH";
 
     public static void main(String args[])
             throws IOException, InterruptedException, ClassNotFoundException
     {
-        Configuration c = new Configuration();
-        Index = readIndexFile(new Path(args[0]), c, true);
-
-        Job j = configureMergeJob(new Path(args[1]), new Path(args[2]));
+        Job j = configureMergeJob(args[0], new Path(args[1]), new Path(args[2]));
         System.exit(j.waitForCompletion(true) ? 0 : 1);
 
         // TODO: Delete old index files, maybe
     }
 
-    public static Job configureMergeJob(Path existingIndexPath, Path mergedIndexPath)
+    public static Job configureMergeJob(String newIndexFilePath, Path existingIndexPath, Path mergedIndexPath)
             throws IOException
     {
-        Job job = Job.getInstance();
+        Configuration c = new Configuration();
+        c.set(NewIndexPathKey, newIndexFilePath);
+
+        Job job = Job.getInstance(c);
         job.setJarByClass(IndexMerger.class);
         job.setJobName("MergeIndex");
 
@@ -90,10 +92,18 @@ public class IndexMerger
     // The existing IndexReduce step expects Term-Pair mappings
     public static class MergeMap extends Mapper<Text, IndexEntry, Text, DocumentWordPair>
     {
+        static HashMap<Text, DocumentWordPair[]> Index;
+
         @Override
         public void map(Text term, IndexEntry entry, Context context)
                 throws IOException, InterruptedException
         {
+            if (Index == null)
+            {
+                Configuration c = context.getConfiguration();
+                Index = readIndexFile(new Path(c.get(NewIndexPathKey)), c, false);
+            }
+
             List<DocumentWordPair> existingPairs = Arrays.asList((DocumentWordPair[]) entry.get());
             DocumentWordPair[] otherPairs = Index.get(term);
             if (otherPairs != null)
