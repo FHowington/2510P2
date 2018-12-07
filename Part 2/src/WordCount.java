@@ -1,4 +1,5 @@
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
@@ -256,6 +257,34 @@ public class WordCount {
         }
     }
 
+    private static synchronized  void SearchFor(String searchTerms)
+    {
+        Path existingIndexPath = new Path("wordcount/index");
+        Path resultsPath = new Path("wordcount/searchResults");
+        try {
+            FileSystem hdfs = FileSystem.get(new Configuration());
+
+            Job searchJob = HadoopSearcher.configureSearchJob(searchTerms, existingIndexPath, resultsPath);
+            if (searchJob.waitForCompletion(true))
+            {
+                FSDataInputStream file =
+                        hdfs.open(new Path("wordcount/searchResults/part-r-00000"));
+
+                // TODO: Print the contents of the file to the console
+
+                file.close();
+                System.out.println("\nSuccess");
+            }
+
+            if (hdfs.exists(resultsPath)) {
+                hdfs.delete(resultsPath, true);
+            }
+        } catch (IOException | InterruptedException | ClassNotFoundException e) {
+            System.out.println("\nSearch failed:");
+            e.printStackTrace();
+        }
+    }
+
     public static synchronized void main(String[] args) {
         // Plan is this: Keep master inverted index in wordcount/index
         // When new file is loaded, delete whatever is in wordcount/output, put result into index? from normal map
@@ -299,6 +328,12 @@ public class WordCount {
                         System.out.println("\nReading the index failed:");
                         e.printStackTrace();
                     }
+                    break;
+
+                case "search":
+                    System.out.println("Enter search terms, separated by spaces");
+                    String searchTerms = sc.nextLine();
+                    SearchFor(searchTerms);
                     break;
                 case "q":
                     return;
