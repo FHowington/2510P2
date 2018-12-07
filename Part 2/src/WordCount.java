@@ -300,7 +300,6 @@ public class WordCount {
                         e.printStackTrace();
                     }
                     break;
-
                 case "q":
                     return;
             }
