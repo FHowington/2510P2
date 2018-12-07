@@ -121,6 +121,7 @@ public class IndexMerger
                     // should not send the old value to the reducer
                     int existingSize = existingPairs.size();
 
+                    // TODO: Remove duplicates
                 }
             }
 
