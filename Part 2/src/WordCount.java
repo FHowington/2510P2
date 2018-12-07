@@ -259,7 +259,7 @@ public class WordCount {
         }
     }
 
-    private static synchronized  void SearchFor(String searchTerms)
+    private static synchronized void SearchFor(String searchTerms)
     {
         Path existingIndexPath = new Path("wordcount/index");
         Path resultsPath = new Path("wordcount/searchResults");
@@ -341,7 +341,14 @@ public class WordCount {
                 case "search":
                     System.out.println("Enter search terms, separated by spaces");
                     String searchTerms = sc.nextLine();
-                    SearchFor(searchTerms);
+                    if (sequence)
+                    {
+                        SearchFor(searchTerms);
+                    }
+                    else
+                    {
+                        System.out.println("  Not yet implemented...");
+                    }
                     break;
                 case "q":
                     return;

@@ -26,8 +26,6 @@ public class IndexMerger
     {
         Job j = configureMergeJob(args[0], new Path(args[1]), new Path(args[2]));
         System.exit(j.waitForCompletion(true) ? 0 : 1);
-
-        // TODO: Delete old index files, maybe
     }
 
     public static Job configureMergeJob(String newIndexFilePath, Path existingIndexPath, Path mergedIndexPath)
@@ -94,6 +92,17 @@ public class IndexMerger
     {
         static HashMap<Text, DocumentWordPair[]> Index;
 
+        private void removeDuplicates(DocumentWordPair superseding, List<DocumentWordPair> existing)
+        {
+            for (DocumentWordPair p : existing)
+            {
+                if (p.matchesDocumentAndWord(superseding))
+                {
+                    existing.remove(p);
+                }
+            }
+        }
+
         @Override
         public void map(Text term, IndexEntry entry, Context context)
                 throws IOException, InterruptedException
@@ -119,9 +128,7 @@ public class IndexMerger
 
                     // However, if this pair overwrites an existing one, we
                     // should not send the old value to the reducer
-                    int existingSize = existingPairs.size();
-
-                    // TODO: Remove duplicates
+                    removeDuplicates(pair, existingPairs);
                 }
             }
 
