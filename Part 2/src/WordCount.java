@@ -10,7 +10,9 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.*;
 import org.apache.hadoop.mapreduce.lib.output.*;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -270,9 +272,15 @@ public class WordCount {
                 FSDataInputStream file =
                         hdfs.open(new Path("wordcount/searchResults/part-r-00000"));
 
-                // TODO: Print the contents of the file to the console
+                BufferedReader r = new BufferedReader(new InputStreamReader(file));
+                String currentLine = r.readLine();
+                while (currentLine != null)
+                {
+                    System.out.println(currentLine);
+                    currentLine = r.readLine();
+                }
 
-                file.close();
+                r.close();
                 System.out.println("\nSuccess");
             }
 
