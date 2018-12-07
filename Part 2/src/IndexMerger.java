@@ -130,6 +130,8 @@ public class IndexMerger
                             // TODO: Does this assumption hold?
                         }
                     }
+
+                    // TODO: Remove duplicates
                 }
             }
 
