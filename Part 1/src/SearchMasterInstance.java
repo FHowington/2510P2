@@ -10,6 +10,7 @@ public class SearchMasterInstance extends Thread {
 
     private int stillRunning = 0;
     private ServerThread client;
+    private long startTime = System.nanoTime();
 
     SearchMasterInstance(ArrayList<String> servers, ArrayList<Integer> ports, ServerInstance _gs,
                          HashSet<String> terms, LinkedHashMap<String,
@@ -53,6 +54,9 @@ public class SearchMasterInstance extends Thread {
         stillRunning--;
         if(stillRunning == 0){
             gs.searchResult(fileCounts, client);
+            long endTime = System.nanoTime();
+            long duration = (endTime - startTime);
+            System.out.println(duration);
         }
     }
 }

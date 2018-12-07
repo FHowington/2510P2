@@ -15,6 +15,9 @@ public class MasterInstance extends Thread {
     private int stillRunning = 0;
     private String path;
 
+    private long startTime = System.nanoTime();
+
+
     MasterInstance(ArrayList<String> servers, ArrayList<Integer> ports, ServerInstance _gs, String path) throws IOException {
         runningServers = new ArrayList<>();
         this.gs = _gs;
@@ -77,6 +80,9 @@ public class MasterInstance extends Thread {
         stillRunning--;
         if(stillRunning == 0){
             gs.updateMap(fileCounts, path);
+            long endTime = System.nanoTime();
+            long duration = (endTime - startTime);
+            System.out.println(duration);
         }
     }
 }

@@ -1,0 +1,28 @@
+To compile:
+javac *.java
+
+To run, 4 different types of servers must be initiated, as per the instructions
+
+
+1. HelperInstance - This server is an indexing helper, and an arbitrary number may be run
+java HelperInstance <Port>
+
+2. SearchHelperInstance - This server is a search helper, and an arbitrary number may be run
+java HelperInstance <Port>
+
+3. SeverInstances - Only run one of these, it acts as the mini-google's client facing server.
+After it is started, the addresses of all indexing helpers must be entered, followed by "q"
+Then, all addresses of search helpers must be entered, followed by "q"
+java ServerInstance <Port>
+<HelperInstance1 IP><HelperInstance2 Port>
+<HelperInstance2 IP><HelperInstance2 Port>
+...
+q
+<SearchHelperInstance1 IP><SearchHelperInstance1 Port>
+<SearchHelperInstance2 IP><SearchHelperInstance2 Port>
+...
+q
+
+4. The actual client must now be run which connects to a single ServerInstance. An arbitrary
+number of clients may be run
+java ClientCLI <ServerInstance IP><ServerInstance Port>
