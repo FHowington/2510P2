@@ -95,12 +95,24 @@ public class HadoopIndexer
         public void reduce(Text term, Iterable<DocumentWordPair> documentCounts, Context context)
                 throws IOException, InterruptedException
         {
-            List<DocumentWordPair> output = new ArrayList<>();
+            HashMap<Text, DocumentWordPair> fileCounts = new HashMap<>();
+            List<DocumentWordPair> output; //= new ArrayList<>();
             for (DocumentWordPair count : documentCounts)
             {
-                output.add(count);
+                if (fileCounts.containsKey(count.filePath))
+                {
+                    DocumentWordPair existing = fileCounts.get(count.filePath);
+                    existing.count.set(existing.count.get() + count.count.get());
+                    fileCounts.put(existing.filePath, existing);
+                }
+                else
+                {
+                    fileCounts.put(count.filePath, count);
+                }
+                //output.add(count);
             }
 
+            output = new ArrayList<>(fileCounts.values());
             // Before writing the list of counts to a file,
             // we need to sort them
             output.sort(new Comparator<DocumentWordPair>(){

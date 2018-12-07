@@ -9,6 +9,7 @@ import org.apache.hadoop.mapreduce.lib.output.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -94,13 +95,16 @@ public class IndexMerger
 
         private void removeDuplicates(DocumentWordPair superseding, List<DocumentWordPair> existing)
         {
+            List<DocumentWordPair> toRemove = new LinkedList<>();
             for (DocumentWordPair p : existing)
             {
                 if (p.matchesDocumentAndWord(superseding))
                 {
-                    existing.remove(p);
+                    toRemove.add(p);
                 }
             }
+
+            existing.removeAll(toRemove);
         }
 
         @Override

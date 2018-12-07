@@ -236,7 +236,8 @@ public class WordCount {
                         // The merge was successful. Move the merged index
                         // file to the existing index location
                         hdfs.delete(existingIndexPath, true);
-                        hdfs.rename(tempIndexPath, existingIndexPath);
+                        hdfs.rename(new Path("wordcount/tempIndex/part-r-00000"),
+                                new Path("wordcount/index/index"));
 
                         System.out.println("\nSuccess");
                     }
@@ -269,6 +270,7 @@ public class WordCount {
             Job searchJob = HadoopSearcher.configureSearchJob(searchTerms, existingIndexPath, resultsPath);
             if (searchJob.waitForCompletion(true))
             {
+                System.out.println("\nSuccess:");
                 FSDataInputStream file =
                         hdfs.open(new Path("wordcount/searchResults/part-r-00000"));
 
@@ -281,7 +283,6 @@ public class WordCount {
                 }
 
                 r.close();
-                System.out.println("\nSuccess");
             }
 
             if (hdfs.exists(resultsPath)) {
