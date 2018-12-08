@@ -67,16 +67,16 @@ public class WordCount {
                 result.append(entry.getValue());
                 result.append(" ");
             }
-            context.write(new Text(result.toString()), key );
+            context.write(key, new Text(result.toString()));
         }
     }
 
-    public static class MapIndex extends Mapper<Text, Text, Text, Text> {
+    public static class MapIndex extends Mapper<LongWritable, Text, Text, Text> {
         public MapIndex() {
         }
 
         // How do we map a mapping? Each line has a single word, and multiple files mapped to that word with an occurrence #
-        public void map(Text key, Text value, Context context)
+        public void map(LongWritable key, Text value, Context context)
                 throws IOException, InterruptedException {
             /*Get the name of the file using context.getInputSplit()method*/
             String line = value.toString();
@@ -144,7 +144,7 @@ public class WordCount {
             job.setOutputKeyClass(Text.class);
             job.setOutputValueClass(Text.class);
             job.setInputFormatClass(TextInputFormat.class);
-            job.setOutputFormatClass(SequenceFileOutputFormat.class);
+            job.setOutputFormatClass(TextOutputFormat.class);
             Path outputPath = new Path("wordcount/output");
             FileInputFormat.addInputPath(job, new Path(newFile));
             FileOutputFormat.setOutputPath(job, outputPath);
@@ -179,7 +179,7 @@ public class WordCount {
             //Defining the output value class for the mapper
             job.setOutputKeyClass(Text.class);
             job.setOutputValueClass(Text.class);
-            job.setInputFormatClass(SequenceFileInputFormat.class);
+            job.setInputFormatClass(TextInputFormat.class);
             job.setOutputFormatClass(TextOutputFormat.class);
             Path outputPath = new Path("wordcount/tempresult");
             FileInputFormat.addInputPath(job, new Path("wordcount/index"));
