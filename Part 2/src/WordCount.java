@@ -13,89 +13,61 @@ import org.apache.hadoop.mapreduce.lib.output.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class WordCount {
 
-    public static class Map extends Mapper<LongWritable, Text, Text, DocumentWordPair>
-    {
-        @Override
-        public void map(LongWritable documentId, Text documentText, Context context)
-                throws IOException, InterruptedException
-        {
-            Text fileName = new Text(((FileSplit) context.getInputSplit()).getPath().getName());
-            // It is easier to count words in a document now, when
-            // we have the documentId at our disposal, instead of
-            // trying to aggregate them in a collect or reduce method
-            HashMap<String, Long> wordCounts = new HashMap<>();
-            StringTokenizer tokenizer = new StringTokenizer(documentText.toString());
-            while (tokenizer.hasMoreTokens())
-            {
-                String token = tokenizer.nextToken();
-                if (wordCounts.containsKey(token))
-                {
-                    wordCounts.put(token, wordCounts.get(token)+1);
-                }
-                else
-                {
-                    wordCounts.put(token, (long)1);
-                }
+    public static class Map extends Mapper<LongWritable, Text, Text, Text> {
+        public Map() {
+        }
 
-            }
+        public void map(LongWritable key, Text value, Context context)
+                throws IOException, InterruptedException {
+            /*Get the name of the file using context.getInputSplit()method*/
+            String fileName = ((FileSplit) context.getInputSplit()).getPath().getName();
 
-            // After counting all words in the document, send the key-value
-            // aggregates to the reduce step
-            for(String word : wordCounts.keySet())
-            {
-                Text currentWord = new Text(word);
-                LongWritable count = new LongWritable(wordCounts.get(word));
-                context.write(currentWord, new DocumentWordPair(fileName, currentWord, count));
+            String line = value.toString();
+            //Split the line in words
+            String words[] = line.split(" ");
+            for (String s : words) {
+                //for each word emit word as key and file name as value
+                context.write(new Text(s), new Text(fileName));
             }
         }
     }
 
 
-    public static class Reduce extends Reducer<Text, DocumentWordPair, Text, IndexEntry>
-    {
-        @Override
-        public void reduce(Text term, Iterable<DocumentWordPair> documentCounts, Context context)
-                throws IOException, InterruptedException
-        {
-            HashMap<Text, DocumentWordPair> fileCounts = new HashMap<>();
-            List<DocumentWordPair> output; //= new ArrayList<>();
-            for (DocumentWordPair count : documentCounts)
-            {
-                if (fileCounts.containsKey(count.filePath))
-                {
-                    DocumentWordPair existing = fileCounts.get(count.filePath);
-                    existing.count.set(existing.count.get() + count.count.get());
-                    fileCounts.put(existing.filePath, existing);
+    public static class Reduce extends Reducer<Text, Text, Text, Text> {
+        public Reduce() {
+        }
+
+        public void reduce(Text key, Iterable<Text> values, Context context)
+                throws IOException, InterruptedException {
+            /*Declare the Hash Map to store File name as key to compute and store number of times the filename is occurred for as value*/
+            HashMap<String, Integer> m = new HashMap<>();
+            int count;
+            for (Text t : values) {
+                String str = t.toString();
+                /*Check if file name is present in the HashMap ,if File name is not present then add the Filename to the HashMap and increment the counter by one , This condition will be satisfied on first occurrence of that word*/
+                if (m.get(str) != null) {
+                    count = m.get(str);
+                    m.put(str, ++count);
+                } else {
+                    /*Else part will execute if file name is already added then just increase the count for that file name which is stored as key in the hash map*/
+                    m.put(str, 1);
                 }
-                else
-                {
-                    fileCounts.put(count.filePath, count);
-                }
-                //output.add(count);
             }
+            /* Emit word and [file1->count of the word1 in file1 , file2->count of the word1 in file2... ] as output*/
 
-            output = new ArrayList<>(fileCounts.values());
-            // Before writing the list of counts to a file,
-            // we need to sort them
-            output.sort(new Comparator<DocumentWordPair>(){
-                @Override
-                public int compare(DocumentWordPair left, DocumentWordPair right) {
-                    // Sort first by word count
-                    if (left.count.get() > right.count.get())
-                        return -1;
-                    if (left.count.get() < right.count.get())
-                        return 1;
-
-                    // Then by document ID in the event of a tie
-                    return left.filePath.compareTo(right.filePath);
-                }
-            });
-
-            context.write(term, new IndexEntry(output.toArray(new DocumentWordPair[0])));
+            StringBuilder result = new StringBuilder();
+            result.append("-");
+            for (java.util.Map.Entry<String, Integer> entry : m.entrySet()) {
+                result.append(entry.getKey()).append("=");
+                result.append(entry.getValue());
+                result.append(" ");
+            }
+            context.write(key, new Text(result.toString()));
         }
     }
 
