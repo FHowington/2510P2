@@ -180,7 +180,7 @@ public class WordCount {
             job.setOutputKeyClass(Text.class);
             job.setOutputValueClass(Text.class);
             job.setInputFormatClass(SequenceFileInputFormat.class);
-            job.setOutputFormatClass(SequenceFileOutputFormat.class);
+            job.setOutputFormatClass(TextOutputFormat.class);
             Path outputPath = new Path("wordcount/tempresult");
             FileInputFormat.addInputPath(job, new Path("wordcount/index"));
             FileOutputFormat.setOutputPath(job, outputPath);
