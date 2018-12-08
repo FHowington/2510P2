@@ -50,7 +50,7 @@ public class IndexEntry extends ArrayWritable
 /**
  * This class is a simple container to hold a term's "posting"
  * (using the verbiage of the given PowerPoint slides).
- *
+ *IndexEntry
  * To be used as a ValueType in a map/reduce operation, this
  * class must implement Writable. To be used as a KeyType,
  * it must implement WritableComparable, which implements Writable.

@@ -7,28 +7,26 @@ import org.apache.hadoop.mapreduce.lib.input.*;
 import org.apache.hadoop.mapreduce.lib.output.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 
 /**
  * This class is responsible for searching the index created
  * by a HadoopIndexer, as well as returning search results
  */
-public class HadoopSearcher
-{
+public class HadoopSearcher {
 
     static final String SearchTermKey = "SEARCH_TERMS";
 
     public static void main(String args[])
-            throws IOException, InterruptedException, ClassNotFoundException
-    {
+            throws IOException, InterruptedException, ClassNotFoundException {
         Job j = configureSearchJob(args[0], new Path(args[1]), new Path(args[2]));
         System.exit(j.waitForCompletion(true) ? 0 : 1);
     }
 
     // Input terms must be comma-separated
     public static Job configureSearchJob(String inputTerms, Path indexPath, Path outputPath)
-            throws IOException
-    {
+            throws IOException {
         Configuration c = new Configuration();
         c.set(SearchTermKey, inputTerms);
         Job job = Job.getInstance(c);
@@ -36,11 +34,11 @@ public class HadoopSearcher
         job.setJobName("SearchDocuments");
 
         job.setMapperClass(SearchMap.class);
-        job.setReducerClass(SearchCombine.class);
+        job.setReducerClass(SearchReduce.class);
         //job.setReducerClass(SearchReduce.class);
 
         job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(DocumentWordPair.class);
+        job.setMapOutputValueClass(Text.class);
         job.setOutputKeyClass(LongWritable.class);
         job.setOutputValueClass(Text.class);
 
@@ -54,62 +52,52 @@ public class HadoopSearcher
     }
 
 
-    public static class SearchMap extends Mapper<Text, IndexEntry, Text, DocumentWordPair>
-    {
+    public static class SearchMap extends Mapper<LongWritable, Text, Text, LongWritable> {
         @Override
-        public void map(Text term, IndexEntry entry, Context context)
-                throws IOException, InterruptedException
-        {
+        public void map(LongWritable key, Text value, Context context)
+                throws IOException, InterruptedException {
             String searchTerms = context.getConfiguration().get(SearchTermKey);
             String[] terms = searchTerms.split(" ");
 
-            for(int i=0; i < terms.length; i++)
-            {
-                if (terms[i].compareToIgnoreCase(term.toString()) == 0)
-                {
-                    for (DocumentWordPair doc : (DocumentWordPair[]) entry.get())
-                    {
-                        context.write(doc.filePath, doc);
+            String line = value.toString();
+            //Split the line in words
+            String words[] = line.split("-");
+            Text term = new Text(words[0].replaceAll("\\s+", ""));
+            String[] vals = words[1].split(" ");
+
+
+            for (int i = 0; i < terms.length; i++) {
+                if (terms[i].compareToIgnoreCase(term.toString()) == 0) {
+                    for (String s : vals) {
+                        String[] delim = s.split("=");
+                        int val = Integer.parseInt(delim[1]);
+                        /*Check if file name is present in the HashMap ,if File name is not present then add the Filename to the HashMap and increment the counter by one , This condition will be satisfied on first occurrence of that word*/
+
+                        //for each word emit word as key and file name as value
+                        context.write(new Text(delim[0]), new LongWritable(val));
                     }
                 }
             }
         }
     }
 
+
     // Compute a document's rank, and emit the rank-filename pair to the next phase
-    public static class SearchCombine extends Reducer<Text, DocumentWordPair, LongWritable, Text>
-    {
+    public static class SearchReduce extends Reducer<Text, LongWritable, LongWritable, Text> {
         @Override
-        public void reduce(Text fileName, Iterable<DocumentWordPair> termCounts, Context context)
-                throws IOException, InterruptedException
-        {
+        public void reduce(Text fileName, Iterable<LongWritable> docCounts, Context context)
+                throws IOException, InterruptedException {
             LongWritable sum = new LongWritable(0);
 
             // Iterate over all matching terms for this document, and sum their counts
-            for (DocumentWordPair term : termCounts)
-            {
-                sum.set(sum.get() + term.count.get());
+            for (LongWritable val : docCounts) {
+                sum.set(sum.get() + val.get());
             }
 
             context.write(sum, fileName);
         }
     }
 
-    // When the splits are sent from the combiner to the reducer, they will be sorted.
-    // So, by the time this class executes its code, Hadoop will have already sorted
-    // our output. We are okay to emit the results as we find them (if we only have
-    // one reducer, that is).
-    public static class SearchReduce extends Reducer<LongWritable, Text, LongWritable, Text>
-    {
-        @Override
-        public void reduce(LongWritable rank, Iterable<Text> fileNames, Context context)
-                throws IOException, InterruptedException
-        {
-            for (Text fileName : fileNames)
-            {
-                context.write(rank, fileName);
-            }
-        }
-    }
+
 
 }
