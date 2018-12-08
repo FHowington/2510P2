@@ -38,7 +38,7 @@ public class HadoopSearcher {
         //job.setReducerClass(SearchReduce.class);
 
         job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(Text.class);
+        job.setMapOutputValueClass(LongWritable.class);
         job.setOutputKeyClass(LongWritable.class);
         job.setOutputValueClass(Text.class);
 
