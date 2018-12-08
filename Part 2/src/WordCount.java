@@ -142,7 +142,7 @@ public class WordCount {
             job = new Job(conf, "UseCase1");
             //Defining the output key and value class for the mapper
             job.setMapOutputKeyClass(Text.class);
-            job.setMapOutputValueClass(IndexEntry.class);
+            job.setMapOutputValueClass(Text.class);
             job.setJarByClass(WordCount.class);
             job.setMapperClass(Map.class);
             job.setReducerClass(Reduce.class);
