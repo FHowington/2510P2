@@ -13,6 +13,7 @@ import org.apache.hadoop.mapreduce.lib.output.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -38,7 +39,7 @@ public class WordCount {
     }
 
 
-    public static class Reduce extends Reducer<Text, Text, Text, Text> {
+    public static class Reduce extends Reducer<Text, Text, Text, IndexEntry> {
         public Reduce() {
         }
 
@@ -60,14 +61,17 @@ public class WordCount {
             }
             /* Emit word and [file1->count of the word1 in file1 , file2->count of the word1 in file2... ] as output*/
 
+            ArrayList<DocumentWordPair> res= new ArrayList<>();
+
             StringBuilder result = new StringBuilder();
             result.append("-");
             for (java.util.Map.Entry<String, Integer> entry : m.entrySet()) {
                 result.append(entry.getKey()).append("=");
                 result.append(entry.getValue());
                 result.append(" ");
+                res.add(new DocumentWordPair(new Text(entry.getKey()), key, new LongWritable(entry.getValue())));
             }
-            context.write(key, new Text(result.toString()));
+            context.write(key, new IndexEntry(res.toArray(new DocumentWordPair[res.size()])));
         }
     }
 
@@ -93,7 +97,7 @@ public class WordCount {
     }
 
 
-    public static class ReduceIndex extends Reducer<Text, Text, Text, Text> {
+    public static class ReduceIndex extends Reducer<Text, Text, Text, IndexEntry> {
         public ReduceIndex() {
         }
 
@@ -120,12 +124,14 @@ public class WordCount {
             /* Emit word and [file1->count of the word1 in file1 , file2->count of the word1 in file2... ] as output*/
             StringBuilder result = new StringBuilder();
             result.append("-");
+            ArrayList<DocumentWordPair> res= new ArrayList<>();
             for (java.util.Map.Entry<String, Integer> entry : m.entrySet()) {
                 result.append(entry.getKey()).append("=");
                 result.append(entry.getValue());
                 result.append(" ");
+                res.add(new DocumentWordPair(new Text(entry.getKey()), key, new LongWritable(entry.getValue())));
             }
-            context.write(key, new Text(result.toString()));
+            context.write(key, new IndexEntry(res.toArray(new DocumentWordPair[res.size()])));
         }
     }
 
@@ -136,7 +142,7 @@ public class WordCount {
             job = new Job(conf, "UseCase1");
             //Defining the output key and value class for the mapper
             job.setMapOutputKeyClass(Text.class);
-            job.setMapOutputValueClass(Text.class);
+            job.setMapOutputValueClass(IndexEntry.class);
             job.setJarByClass(WordCount.class);
             job.setMapperClass(Map.class);
             job.setReducerClass(Reduce.class);
@@ -178,7 +184,7 @@ public class WordCount {
             job.setReducerClass(ReduceIndex.class);
             //Defining the output value class for the mapper
             job.setOutputKeyClass(Text.class);
-            job.setOutputValueClass(Text.class);
+            job.setOutputValueClass(IndexEntry.class);
             job.setInputFormatClass(TextInputFormat.class);
             job.setOutputFormatClass(TextOutputFormat.class);
             Path outputPath = new Path("wordcount/tempresult");
@@ -209,56 +215,6 @@ public class WordCount {
         }
     }
 
-    /**
-     * Index the files in the given folder, and merge that index with the
-     * extant, main index (if it exists)
-     */
-    private static synchronized void IndexAndMerge(String dirToIndex)
-    {
-        Path newIndexPath = new Path("wordcount/newIndex");
-        Path tempIndexPath = new Path("wordcount/tempIndex");
-        Path existingIndexPath = new Path("wordcount/index");
-        try {
-            FileSystem hdfs = FileSystem.get(new Configuration());
-
-            Job indexJob = HadoopIndexer.configureIndexJob(new Path(dirToIndex), newIndexPath);
-            if(indexJob.waitForCompletion(true))
-            {
-                // If the new index was successfully created, try to merge it
-                // with the existing index, if possible
-                if (hdfs.exists(existingIndexPath))
-                {
-                    Job mergeJob = IndexMerger.configureMergeJob(
-                            "wordcount/newIndex/part-r-00000",
-                            existingIndexPath, tempIndexPath);
-                    if (mergeJob.waitForCompletion(true))
-                    {
-                        // The merge was successful. Move the merged index
-                        // file to the existing index location
-                        hdfs.delete(existingIndexPath, true);
-                        hdfs.rename(new Path("wordcount/tempIndex/part-r-00000"),
-                                new Path("wordcount/index/index"));
-
-                        System.out.println("\nSuccess");
-                    }
-                }
-                else
-                {
-                    // If there was no prior index, this new index becomes the master
-                    hdfs.rename(newIndexPath, existingIndexPath);
-                    System.out.println("\nSuccess");
-                }
-
-            }
-
-            if (hdfs.exists(newIndexPath)) {
-                hdfs.delete(newIndexPath, true);
-            }
-        } catch (IOException | InterruptedException | ClassNotFoundException e) {
-            System.out.println("\nIndexing failed:");
-            e.printStackTrace();
-        }
-    }
 
     private static synchronized void SearchFor(String searchTerms)
     {
@@ -322,10 +278,6 @@ public class WordCount {
                                 System.out.println("Success");
                             }
                         }
-                    }
-                    else
-                    {
-                        IndexAndMerge(dirToIndex);
                     }
                     break;
 

@@ -44,7 +44,7 @@ public class HadoopSearcher
         job.setOutputKeyClass(LongWritable.class);
         job.setOutputValueClass(Text.class);
 
-        job.setInputFormatClass(SequenceFileInputFormat.class);
+        job.setInputFormatClass(TextInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
 
         SequenceFileInputFormat.addInputPath(job, indexPath);
