@@ -71,12 +71,12 @@ public class WordCount {
         }
     }
 
-    public static class MapIndex extends Mapper<LongWritable, Text, Text, Text> {
+    public static class MapIndex extends Mapper<Text, Text, Text, Text> {
         public MapIndex() {
         }
 
         // How do we map a mapping? Each line has a single word, and multiple files mapped to that word with an occurrence #
-        public void map(LongWritable key, Text value, Context context)
+        public void map(Text key, Text value, Context context)
                 throws IOException, InterruptedException {
             /*Get the name of the file using context.getInputSplit()method*/
             String line = value.toString();
