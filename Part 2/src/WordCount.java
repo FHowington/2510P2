@@ -144,7 +144,7 @@ public class WordCount {
             job.setOutputKeyClass(Text.class);
             job.setOutputValueClass(Text.class);
             job.setInputFormatClass(TextInputFormat.class);
-            job.setOutputFormatClass(TextOutputFormat.class);
+            job.setOutputFormatClass(SequenceFileOutputFormat.class);
             Path outputPath = new Path("wordcount/output");
             FileInputFormat.addInputPath(job, new Path(newFile));
             FileOutputFormat.setOutputPath(job, outputPath);
@@ -179,8 +179,8 @@ public class WordCount {
             //Defining the output value class for the mapper
             job.setOutputKeyClass(Text.class);
             job.setOutputValueClass(Text.class);
-            job.setInputFormatClass(TextInputFormat.class);
-            job.setOutputFormatClass(TextOutputFormat.class);
+            job.setInputFormatClass(SequenceFileInputFormat.class);
+            job.setOutputFormatClass(SequenceFileOutputFormat.class);
             Path outputPath = new Path("wordcount/tempresult");
             FileInputFormat.addInputPath(job, new Path("wordcount/index"));
             FileOutputFormat.setOutputPath(job, outputPath);
