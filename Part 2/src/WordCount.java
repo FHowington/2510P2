@@ -67,7 +67,7 @@ public class WordCount {
                 result.append(entry.getValue());
                 result.append(" ");
             }
-            context.write(key, new Text(result.toString()));
+            context.write(new Text(result.toString()), key );
         }
     }
 
