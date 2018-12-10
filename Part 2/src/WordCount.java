@@ -13,6 +13,8 @@ import org.apache.hadoop.mapreduce.lib.output.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -271,6 +273,7 @@ public class WordCount {
             if (searchJob.waitForCompletion(true))
             {
                 System.out.println("\nSuccess:");
+                ArrayList<String> lines = new ArrayList<>();
                 FSDataInputStream file =
                         hdfs.open(new Path("wordcount/searchResults/part-r-00000"));
 
@@ -278,8 +281,15 @@ public class WordCount {
                 String currentLine = r.readLine();
                 while (currentLine != null)
                 {
-                    System.out.println(currentLine);
+                    lines.add(currentLine);
                     currentLine = r.readLine();
+                }
+
+                String[] sorted = lines.toArray(new String[0]);
+                Arrays.sort(sorted);
+                for (String s : sorted)
+                {
+                    System.out.println(s);
                 }
 
                 r.close();
