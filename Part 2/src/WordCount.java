@@ -106,14 +106,16 @@ public class WordCount {
 
                 String str = t.toString();
                 String[] delim = str.split("=");
-                int val = Integer.parseInt(delim[1]);
-                /*Check if file name is present in the HashMap ,if File name is not present then add the Filename to the HashMap and increment the counter by one , This condition will be satisfied on first occurrence of that word*/
-                if (m.get(delim[0]) != null) {
-                    count = m.get(delim[0]);
-                    m.put(delim[0], count + val);
-                } else {
-                    /*Else part will execute if file name is already added then just increase the count for that file name which is stored as key in the hash map*/
-                    m.put(delim[0], val);
+                if(delim.length > 1) {
+                    int val = Integer.parseInt(delim[1]);
+                    /*Check if file name is present in the HashMap ,if File name is not present then add the Filename to the HashMap and increment the counter by one , This condition will be satisfied on first occurrence of that word*/
+                    if (m.get(delim[0]) != null) {
+                        count = m.get(delim[0]);
+                        m.put(delim[0], count + val);
+                    } else {
+                        /*Else part will execute if file name is already added then just increase the count for that file name which is stored as key in the hash map*/
+                        m.put(delim[0], val);
+                    }
                 }
             }
             /* Emit word and [file1->count of the word1 in file1 , file2->count of the word1 in file2... ] as output*/
@@ -124,7 +126,9 @@ public class WordCount {
                 result.append(entry.getValue());
                 result.append(" ");
             }
-            context.write(key, new Text(result.toString()));
+            if(m.size() > 0) {
+                context.write(key, new Text(result.toString()));
+            }   
         }
     }
 
