@@ -246,7 +246,6 @@ public class WordCount {
         // Plan is this: Keep master inverted index in wordcount/index
         // When new file is loaded, delete whatever is in wordcount/output, put result into index? from normal map
         // then run map on
-        boolean sequence = args.length > 0;
 
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -262,19 +261,14 @@ public class WordCount {
                 case "index":
                     System.out.println("Enter location of file to index on HDFS");
                     String dirToIndex = sc.nextLine();
-                    if (!sequence)
-                    {
+
                         if (mapNew(dirToIndex)) {
                             if (mergeIndex()) {
                                 cleanup();
                                 System.out.println("Success");
                             }
                         }
-                    }
-                    else
-                    {
-                        IndexAndMerge(dirToIndex);
-                    }
+                
                     break;
 
                 case "read":
@@ -290,14 +284,10 @@ public class WordCount {
                 case "search":
                     System.out.println("Enter search terms, separated by spaces");
                     String searchTerms = sc.nextLine();
-                    if (sequence)
-                    {
+
                         SearchFor(searchTerms);
-                    }
-                    else
-                    {
-                        System.out.println("  Not yet implemented...");
-                    }
+                  
+
                     break;
                 case "q":
                     return;
