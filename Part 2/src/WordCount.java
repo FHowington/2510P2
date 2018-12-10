@@ -13,8 +13,7 @@ import org.apache.hadoop.mapreduce.lib.output.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class WordCount {
     public static class Map extends Mapper<LongWritable, Text, Text, Text> {
@@ -128,7 +127,7 @@ public class WordCount {
             }
             if(m.size() > 0) {
                 context.write(key, new Text(result.toString()));
-            }   
+            }
         }
     }
 
@@ -228,10 +227,26 @@ public class WordCount {
 
                 BufferedReader r = new BufferedReader(new InputStreamReader(file));
                 String currentLine = r.readLine();
+
+                ArrayList<String> results = new ArrayList<>();
                 while (currentLine != null)
                 {
-                    System.out.println(currentLine);
+                    results.add(currentLine);
                     currentLine = r.readLine();
+                }
+
+                String[] resArray = results.toArray(new String[results.size()]);
+                Arrays.sort(resArray, new Comparator<String>() {
+                    @Override
+                    public int compare(String o1, String o2) {
+                        int num1 = Integer.parseInt(o1.split(" ")[0]);
+                        int num2 = Integer.parseInt(o2.split(" ")[0]);
+                        return num1-num2;
+                    }
+                });
+
+                for(int i=0; i<resArray.length; i++){
+                    System.out.println(resArray[i]);
                 }
 
                 r.close();
@@ -245,6 +260,8 @@ public class WordCount {
             e.printStackTrace();
         }
     }
+
+
 
     public static synchronized void main(String[] args) {
         // Plan is this: Keep master inverted index in wordcount/index
