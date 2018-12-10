@@ -239,8 +239,8 @@ public class WordCount {
                 Arrays.sort(resArray, new Comparator<String>() {
                     @Override
                     public int compare(String o1, String o2) {
-                        int num1 = Integer.parseInt(o1.split(" ")[0]);
-                        int num2 = Integer.parseInt(o2.split(" ")[0]);
+                        int num1 = Integer.parseInt(o1.split("\t")[0]);
+                        int num2 = Integer.parseInt(o2.split("\t")[0]);
                         return num1-num2;
                     }
                 });
