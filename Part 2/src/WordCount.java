@@ -241,7 +241,7 @@ public class WordCount {
                     public int compare(String o1, String o2) {
                         int num1 = Integer.parseInt(o1.split("\t")[0]);
                         int num2 = Integer.parseInt(o2.split("\t")[0]);
-                        return num1-num2;
+                        return num2-num1;
                     }
                 });
 
