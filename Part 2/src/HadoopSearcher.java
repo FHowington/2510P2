@@ -93,11 +93,7 @@ public class HadoopSearcher {
             for (LongWritable val : docCounts) {
                 sum.set(sum.get() + val.get());
             }
-
             context.write(sum, fileName);
         }
     }
-
-
-
 }
