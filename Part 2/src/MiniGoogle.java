@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class WordCount {
+public class MiniGoogle {
     public static class Map extends Mapper<LongWritable, Text, Text, Text> {
         public Map() {
         }
@@ -139,7 +139,7 @@ public class WordCount {
             //Defining the output key and value class for the mapper
             job.setMapOutputKeyClass(Text.class);
             job.setMapOutputValueClass(Text.class);
-            job.setJarByClass(WordCount.class);
+            job.setJarByClass(MiniGoogle.class);
             job.setMapperClass(Map.class);
             job.setReducerClass(Reduce.class);
             //Defining the output value class for the mapper
@@ -147,7 +147,7 @@ public class WordCount {
             job.setOutputValueClass(Text.class);
             job.setInputFormatClass(TextInputFormat.class);
             job.setOutputFormatClass(TextOutputFormat.class);
-            Path outputPath = new Path("wordcount/output");
+            Path outputPath = new Path("output");
             FileInputFormat.addInputPath(job, new Path(newFile));
             FileOutputFormat.setOutputPath(job, outputPath);
             //deleting the output path automatically from hdfs so that we don't have delete it explicitly
@@ -172,10 +172,10 @@ public class WordCount {
             job = new Job(conf, "UseCase2");
             job.setMapOutputKeyClass(Text.class);
             job.setMapOutputValueClass(Text.class);
-            job.setJarByClass(WordCount.class);
+            job.setJarByClass(MiniGoogle.class);
             FileSystem hdfs = FileSystem.get(conf);
             // Move output to same folder as current index
-            hdfs.rename(new Path("wordcount/output/part-r-00000"), new Path("wordcount/index/tempindex"));
+            hdfs.rename(new Path("output/part-r-00000"), new Path("index/tempindex"));
             job.setMapperClass(MapIndex.class);
             job.setReducerClass(ReduceIndex.class);
             //Defining the output value class for the mapper
@@ -183,8 +183,8 @@ public class WordCount {
             job.setOutputValueClass(Text.class);
             job.setInputFormatClass(TextInputFormat.class);
             job.setOutputFormatClass(TextOutputFormat.class);
-            Path outputPath = new Path("wordcount/tempresult");
-            FileInputFormat.addInputPath(job, new Path("wordcount/index"));
+            Path outputPath = new Path("tempresult");
+            FileInputFormat.addInputPath(job, new Path("index"));
             FileOutputFormat.setOutputPath(job, outputPath);
             //deleting the output path automatically from hdfs so that we don't have delete it explicitly
             if (hdfs.exists(outputPath)) {
@@ -203,9 +203,9 @@ public class WordCount {
         Configuration conf = new Configuration();
         try {
             FileSystem hdfs = FileSystem.get(conf);
-            hdfs.delete(new Path("wordcount/index/tempindex"), true);
-            hdfs.delete(new Path("wordcount/index/index"), true);
-            hdfs.rename(new Path("wordcount/tempresult/part-r-00000"), new Path("wordcount/index/index"));
+            hdfs.delete(new Path("index/tempindex"), true);
+            hdfs.delete(new Path("index/index"), true);
+            hdfs.rename(new Path("tempresult/part-r-00000"), new Path("index/index"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -213,8 +213,8 @@ public class WordCount {
 
     private static synchronized void SearchFor(String searchTerms)
     {
-        Path existingIndexPath = new Path("wordcount/index");
-        Path resultsPath = new Path("wordcount/searchResults");
+        Path existingIndexPath = new Path("index");
+        Path resultsPath = new Path("searchResults");
         try {
             FileSystem hdfs = FileSystem.get(new Configuration());
 
@@ -223,7 +223,7 @@ public class WordCount {
             {
                 System.out.println("\nSuccess:");
                 FSDataInputStream file =
-                        hdfs.open(new Path("wordcount/searchResults/part-r-00000"));
+                        hdfs.open(new Path("searchResults/part-r-00000"));
 
                 BufferedReader r = new BufferedReader(new InputStreamReader(file));
                 String currentLine = r.readLine();
@@ -290,16 +290,6 @@ public class WordCount {
                             }
                         }
                 
-                    break;
-
-                case "read":
-                    System.out.println("Enter location of file to read on HDFS");
-                    try {
-                        IndexMerger.readIndexFile(new Path(sc.nextLine()), new Configuration(), true);
-                    } catch (IOException e) {
-                        System.out.println("\nReading the index failed:");
-                        e.printStackTrace();
-                    }
                     break;
 
                 case "search":
