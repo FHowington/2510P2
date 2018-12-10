@@ -1875,7 +1875,7 @@ the whole program?  Eh?"
 porridge better than anything; but of course there's nothing like
 that here."
 
-"_Porridge à la Russe,_ your honor would like?" said the Tatar,
+"_Porridge \E0 la Russe,_ your honor would like?" said the Tatar,
 bending down to Levin, like a nurse speaking to a child.
 
 "No, joking apart, whatever you choose is sure to be good.  I've
@@ -1900,8 +1900,8 @@ The Tatar, recollecting that it was Stepan Arkadyevitch's way not
 to call the dishes by the names in the French bill of fare, did
 not repeat them after him, but could not resist rehearsing the
 whole menu to himself according to the bill:--"_Soupe
-printanière, turbot, sauce Beaumarchais, poulard à l'estragon,
-macédoine de fruits_...etc.," and then instantly, as though worked
+printani\E8re, turbot, sauce Beaumarchais, poulard \E0 l'estragon,
+mac\E9doine de fruits_...etc.," and then instantly, as though worked
 by springs, laying down one bound bill of fare, he took up
 another, the list of wines, and submitted it to Stepan
 Arkadyevitch.
@@ -3168,7 +3168,7 @@ sweet, loving eyes!  When she said:  Indeed I do...'
 her." And he began wondering where to finish the evening.
 
 He passed in review of the places he might go to.  "Club? a game
-of bezique, champagne with Ignatov? No, I'm not going.  _Château
+of bezique, champagne with Ignatov? No, I'm not going.  _Ch\E2teau
 des Fleurs_; there I shall find Oblonsky, songs, the cancan.  No,
 I'm sick of it.  That's why I like the Shtcherbatskys', that I'm
 growing better.  I'll go home." He went straight to his room at
@@ -4424,7 +4424,7 @@ harassed young man she was dancing with in the conversation, the
 thread of which he had lost and could not pick up again, she
 obeyed with external liveliness the peremptory shouts of
 Korsunsky starting them all into the _grand rond_, and then into
-the _châine_, and at the same time she kept watch with a growing
+the _ch\E2ine_, and at the same time she kept watch with a growing
 pang at her heart.  "No, it's not the admiration of the crowd has
 intoxicated her, but the adoration of one.  And that one? can it
 be he?" Every time he spoke to Anna the joyous light flashed
@@ -5831,7 +5831,7 @@ with his fair curls, his blue eyes, and his plump, graceful
 little legs in tightly pulled-up stockings.  Anna experienced
 almost physical pleasure in the sensation of his nearness, and
 his caresses, and moral soothing, when she met his simple,
-confiding, and loving glance, and heard his naïve questions.
+confiding, and loving glance, and heard his na\EFve questions.
 Anna took out the presents Dolly's children had sent him, and
 told her son what sort of little girl was Tanya at Moscow, and
 how Tanya could read, and even taught the other children.
@@ -6033,7 +6033,7 @@ expect?" he said.
 across the room to his study.  "What are you reading now?" she
 asked.
 
-"Just now I'm reading Duc de Lille, _Poésie des Enfers,_"
+"Just now I'm reading Duc de Lille, _Po\E9sie des Enfers,_"
 he answered.  "A very remarkable book."
 
 Anna smiled, as people smile at the weaknesses of those they
@@ -7247,7 +7247,7 @@ things."
 their names?...the bankers...they've some splendid engravings.
 They showed them to us."
 
-"Why, have you been at the Schützburgs?" asked the hostess from
+"Why, have you been at the Sch\FCtzburgs?" asked the hostess from
 the samovar.
 
 "Yes, _ma chere_.  They asked my husband and me to dinner, and told
@@ -7321,7 +7321,7 @@ though only in a whisper, everything's explained, isn't it?"
 be a fool.  And, well, you know one can't say that of oneself."
 
 "'No one is satisfied with his fortune, and everyone is
-satisfied with his wit.'"  The attaché repeated the French
+satisfied with his wit.'"  The attach\E9 repeated the French
 saying.
 
 "That's just it, just it," Princess Myakaya turned to him.  "But
@@ -7357,10 +7357,10 @@ from whom one has only just parted.
 
 "Where do I come from?" he said, in answer to a question from the
 ambassador's wife.  "Well, there's no help for it, I must
-confess.  From the _opera bouffé_.  I do believe I've seen it a
+confess.  From the _opera bouff\E9_.  I do believe I've seen it a
 hundred times, and always with fresh enjoyment.  It's exquisite!
 I know it's disgraceful, but I go to sleep at the opera, and I
-sit out the _opera bouffé_ to the last minute, and enjoy it.
+sit out the _opera bouff\E9_ to the last minute, and enjoy it.
 This evening..."
 
 He mentioned a French actress, and was going to tell something
@@ -7445,7 +7445,7 @@ mistakes and then correct them," said Princess Betsy.
 
 "Even after marriage?" said the ambassador's wife playfully.
 
-"'It's never too late to mend.'"  The attaché repeated the
+"'It's never too late to mend.'"  The attach\E9 repeated the
 English proverb.
 
 "Just so," Betsy agreed; "one must make mistakes and correct
@@ -8338,7 +8338,7 @@ peasants? Three haven't turned up.  And there's Semyon..."
 
 "Where are the peasants, then?"
 
-"Five are making compôte" (which meant compost), "four are
+"Five are making comp\F4te" (which meant compost), "four are
 shifting the oats for fear of a touch of mildew, Konstantin
 Dmitrievitch."
 
@@ -11569,13 +11569,13 @@ particle of water in frost, definitely and unalterably, takes the
 special form of the crystal of snow, so each new person that
 arrived at the springs was at once placed in his special place.
 
-_Fürst_ Shtcherbatsky, _sammt Gemahlin und Tochter_, by the
+_F\FCrst_ Shtcherbatsky, _sammt Gemahlin und Tochter_, by the
 apartments they took, and from their name and from the friends
 they made, were immediately crystallized into a definite place
 marked out for them.
 
 There was visiting the watering-place that year a real German
-Fürstin, in consequence of which the crystallizing process went
+F\FCrstin, in consequence of which the crystallizing process went
 on more vigorously than ever.  Princess Shtcherbatskaya wished,
 above everything, to present her daughter to this German
 princess, and the day after their arrival she duly performed this
@@ -11762,7 +11762,7 @@ about her."
 
 The next day, as she watched her unknown friend, Kitty noticed
 that Mademoiselle Varenka was already on the same terms with
-Levin and his companion as with her other _protégés_.  She went up
+Levin and his companion as with her other _prot\E9g\E9s_.  She went up
 to them, entered into conversation with them, and served as
 interpreter for the woman, who could not speak any foreign
 language.
@@ -13970,7 +13970,7 @@ suppose that interest in the common weal is bound to exist in
 every man of a certain degree of advancement.  Possibly you are
 right too, that action founded on material interest would be more
 desirable.  You are altogether, as the French say, too
-_primesautière_ a nature; you must have intense, energetic action,
+_primesauti\E8re_ a nature; you must have intense, energetic action,
 or nothing."
 
 Levin listened to his brother and did not understand a single
@@ -14239,7 +14239,7 @@ Aliosha, it is true, did not stand quite correctly; he kept
 turning round, trying to look at his little jacket from behind;
 but all the same he was wonderfully sweet.  Tanya behaved like a
 grownup person, and looked after the little ones.  And the
-smallest, Lily, was bewitching in her naïve astonishment at
+smallest, Lily, was bewitching in her na\EFve astonishment at
 everything, and it was difficult not to smile when, after taking
 the sacrament, she said in English, "Please, some more."
 
@@ -15571,7 +15571,7 @@ think he slipped in and ate one of them on the sly."
 
 The recollection of her son suddenly roused Anna from the
 helpless condition in which she found herself.  She recalled the
-partly sincere, though greatly exaggerated, rôle of the mother
+partly sincere, though greatly exaggerated, r\F4le of the mother
 living for her child, which she had taken up of late years, and
 she felt with joy that in the plight in which she found herself
 she had a support, quite apart from her relation to her husband
@@ -16022,7 +16022,7 @@ of laughter.
 
 "No; you laugh," said Anna, laughing too in spite of herself,
 "but I never could understand it.  I can't understand the
-husband's rôle in it."
+husband's r\F4le in it."
 
 "The husband?  Liza Merkalova's husband carries her shawl, and is
 always ready to be of use.  But anything more than that in
@@ -16030,7 +16030,7 @@ reality, no one cares to inquire.  You know in decent society one
 doesn't talk or think even of certain details of the toilet.
 That's how it is with this."
 
-"Will you be at Madame Rolandak's fête?" asked Anna, to change
+"Will you be at Madame Rolandak's f\EAte?" asked Anna, to change
 the conversation.
 
 "I don't think so," answered Betsy, and, without looking at her
@@ -16040,7 +16040,7 @@ cigarette, and, fitting it into a silver holder, she lighted it.
 
 "It's like this, you see: I'm in a fortunate position," she
 began, quite serious now, as she took up her cup.  "I understand
-you, and I understand Liza.  Liza now is one of those naïve
+you, and I understand Liza.  Liza now is one of those na\EFve
 natures that, like children, don't know what's good and what's
 bad.  Anyway, she didn't comprehend it when she was very young.
 And now she's aware that the lack of comprehension suits her.
@@ -16237,7 +16237,7 @@ different feelings of the highest and most opposite kind," he
 said to her.
 
 Anna pondered for an instant in uncertainty.  This shrewd man's
-flattering words, the naïve, childlike affection shown her by
+flattering words, the na\EFve, childlike affection shown her by
 Liza Merkalova, and all the social atmosphere she was used to,--
 it was all so easy, and what was in store for her was so
 difficult, that she was for a minute in uncertainty whether to
@@ -16521,7 +16521,7 @@ something else.
 
 "Yes; is that music at his place?" he said, listening to the
 familiar sounds of polkas and waltzes floating across to him.
-"What's the fête?"
+"What's the f\EAte?"
 
 "Serpuhovskoy's come."
 
@@ -16602,7 +16602,7 @@ three hundred roubles from his pocketbook, blushing a little.
 "Vronsky!  Have anything to eat or drink?" asked Yashvin.  "Hi,
 something for the count to eat!  Ah, here it is: have a glass!"
 
-The fête at the colonel's lasted a long while.  There was a great
+The f\EAte at the colonel's lasted a long while.  There was a great
 deal of drinking.  They tossed Serpuhovskoy in the air and caught
 him again several times.  Then they did the same to the colonel.
 Then, to the accompaniment of the band, the colonel himself
@@ -16687,7 +16687,7 @@ party, or else everything goes and will go to the dogs."
 communists?"
 
 "No," said Serpuhovskoy, frowning with vexation at being
-suspected of such an absurdity.  "_Tout ça est une blague_.
+suspected of such an absurdity.  "_Tout \E7a est une blague_.
 That's always been and always will be.  There are no communists.
 But intriguing people have to invent a noxious, dangerous party.
 It's an old trick.  No, what's wanted is a powerful party of
@@ -16703,7 +16703,7 @@ either by money or by favor.  And they have to find a support for
 themselves in inventing a policy.  And they bring forward some
 notion, some policy that they don't believe in, that does harm;
 and the whole policy is really only a means to a government house
-and so much income.  _Cela n'est pas plus fin que ça_, when you get
+and so much income.  _Cela n'est pas plus fin que \E7a_, when you get
 a peep at their cards.  I may be inferior to them, stupider
 perhaps, though I don't see why I should be inferior to them.
 But you and I have one important advantage over them for certain,
@@ -16794,7 +16794,7 @@ before him and thinking of Anna.
 "Perhaps.  But you remember what I've said to you.  And another
 thing, women are all more materialistic than men.  We make
 something immense out of love, but they are always
-_terre-à-terre_."
+_terre-\E0-terre_."
 
 "Directly, directly!" he cried to a footman who came in.  But the
 footman had not come to call them again, as he supposed.  The
@@ -17707,7 +17707,7 @@ Chapter 27
 "If I'd only the heart to throw up what's been set going...such a
 lot of trouble wasted...I'd turn my back on the whole business,
 sell up, go off like Nikolay Ivanovitch...to hear _La Belle
-Hélène_," said the landowner, a pleasant smile lighting up his
+H\E9l\E8ne_," said the landowner, a pleasant smile lighting up his
 shrewd old face.
 
 "But you see you don't throw it up," said Nikolay Ivanovitch
@@ -19154,7 +19154,7 @@ she told me about your Athenian evening.  How loathsome!"
 
 "I was just going to say..."
 
-She interrupted him.  "It was that Thèrése you used to know?"
+She interrupted him.  "It was that Th\E8r\E9se you used to know?"
 
 "I was just saying..."
 
@@ -19222,7 +19222,7 @@ and again he noticed a dark look in her eyes that avoided him.
 "I'm not defending him, it's nothing to me; but I imagine, if you
 had not cared for those pleasures yourself, you might have got
 out of them.  But if it affords you satisfaction to gaze at
-Thèrése in the attire of Eve..."
+Th\E8r\E9se in the attire of Eve..."
 
 "Again, the devil again," Vronsky said, taking the hand she had
 laid on the table and kissing it.
@@ -19268,7 +19268,7 @@ living with me?  He understands nothing, and feels nothing.
 Could a man of any feeling live in the same house with his
 unfaithful wife?  Could he talk to her, call her 'my dear'?"
 
-And again she could not help mimicking him: "'Anna, _ma chère_;
+And again she could not help mimicking him: "'Anna, _ma ch\E8re_;
 Anna, dear'!"
 
 "He's not a man, not a human being--he's a doll!  No one knows
@@ -19359,7 +19359,7 @@ face.  And Vronsky, remembering his dream, felt the same terror
 filling his soul.
 
 "He was fumbling and kept talking quickly, quickly in French, you
-know: _Il faut le battre, le fer, le brayer, le pétrir_....  And in
+know: _Il faut le battre, le fer, le brayer, le p\E9trir_....  And in
 my horror I tried to wake up, and woke up...but woke up in
 the dream.  And I began asking myself what it meant.  And Korney
 said to me: 'In childbirth you'll die, ma'am, you'll die....'
@@ -19992,11 +19992,11 @@ Stepan Arkadyevitch liked dining, but still better he liked to
 give a dinner, small, but very choice, both as regards the food
 and drink and as regards the selection of guests.  He
 particularly liked the program of that day's dinner.  There would
-be fresh perch, asparagus, and _la pièce de resistance_--
+be fresh perch, asparagus, and _la pi\E8ce de resistance_--
 first-rate, but quite plain, roast beef, and wines to suit: so
 much for the eating and drinking.  Kitty and Levin would be of
 the party, and that this might not be obtrusively evident, there
-would be a girl cousin too, and young Shtcherbatsky, and _la pièce
+would be a girl cousin too, and young Shtcherbatsky, and _la pi\E8ce
 de resistance_ among the guests--Sergey Koznishev and Alexey
 Alexandrovitch.  Sergey Ivanovitch was a Moscow man, and a
 philosopher; Alexey Alexandrovitch a Petersburger, and a
@@ -20172,7 +20172,7 @@ summoned at Alexey Alexandrovitch's instigation, was not without
 its discomforting and even dangerous aspect, and he was glad he
 had found it in Moscow.  The members of this deputation had not
 the slightest conception of their duty and the part they were to
-play.  They naïvely believed that it was their business to lay
+play.  They na\EFvely believed that it was their business to lay
 before the commission their needs and the actual condition of
 things, and to ask assistance of the government, and utterly
 failed to grasp that some of their statements and requests
@@ -20402,7 +20402,7 @@ avoid being silent.  Turovtsin--good, simple man--felt
 unmistakably a fish out of water, and the smile with which his
 thick lips greeted Stepan Arkadyevitch said, as plainly as words:
 "Well, old boy, you have popped me down in a learned set!  A
-drinking party now, or the _Château des Fleurs_, would be more in
+drinking party now, or the _Ch\E2teau des Fleurs_, would be more in
 my line!"  The old prince sat in silence, his bright little eyes
 watching Karenin from one side, and Stepan Arkadyevitch saw that
 he had already formed a phrase to sum up that politician of whom
@@ -20435,7 +20435,7 @@ very lively, and there was a merry buzz of voices.  Konstantin
 Levin was the only person who had not arrived.  But this was so
 much the better, as going into the dining room, Stepan
 Arkadyevitch found to his horror that the port and sherry had
-been procured from Deprè, and not from Levy, and, directing that
+been procured from Depr\E8, and not from Levy, and, directing that
 the coachman should be sent off as speedily as possible to
 Levy's, he was going back to the drawing room.
 
@@ -20598,8 +20598,8 @@ which he could not but believe in and which choked him with
 happiness.
 
 "No, we've been hunting in the Tver province.  It was coming back
-from there that I met your _beaufrère_ in the train, or your
-_beaufrère's_ brother-in-law," he said with a smile.  "It was an
+from there that I met your _beaufr\E8re_ in the train, or your
+_beaufr\E8re's_ brother-in-law," he said with a smile.  "It was an
 amusing meeting."
 
 And he began telling with droll good-humor how, after not
@@ -21093,7 +21093,7 @@ said.
 as in any other--in loss, in death--bear one's trouble in peace,
 but that one must act," said he, as though guessing her thought.
 "One must get out of the humiliating position in which one is
-placed; one can't live _à trois_."
+placed; one can't live _\E0 trois_."
 
 "I understand, I quite understand that," said Dolly, and her head
 sank.  She was silent for a little, thinking of herself, of her
@@ -21336,7 +21336,7 @@ he wrote three letters.  But he had hardly finished writing when
 she read them over her arm, and herself finished and wrote the
 answer, "Yes."
 
-"You're playing _secrétaire_?" said the old prince.  "But we must
+"You're playing _secr\E9taire_?" said the old prince.  "But we must
 really be getting along if you want to be in time at the
 theater."
 
@@ -21359,7 +21359,7 @@ afraid, as though of death, of those fourteen hours that he had
 to get through without her.  It was essential for him to be with
 someone to talk to, so as not to be left alone, to kill time.
 Stepan Arkadyevitch would have been the companion most congenial
-to him, but he was going out, he said, to a _soirèe_, in reality to
+to him, but he was going out, he said, to a _soir\E8e_, in reality to
 the ballet.  Levin only had time to tell him he was happy, and
 that he loved him, and would never, never forget what he had done
 for him.  The eyes and the smile of Stepan Arkadyevitch showed
@@ -23373,7 +23373,7 @@ been at confession?"
 
 "You can't be married without it."
 
-"_Aïe, aïe, aïe!_" cried Levin.  "Why, I believe it's nine years
+"_A\EFe, a\EFe, a\EFe!_" cried Levin.  "Why, I believe it's nine years
 since I've taken the sacrament!  I never thought of it."
 
 "You're a pretty fellow!" said Stepan Arkadyevitch laughing, "and
@@ -24300,7 +24300,7 @@ him.
 "What a pity she's lost her looks so," Countess Nordston said to
 Madame Lvova.  "Still he's not worth her little finger, is he?"
 
-"Oh, I like him so--not because he's my future _beau-frère_,"
+"Oh, I like him so--not because he's my future _beau-fr\E8re_,"
 answered Madame Lvova.  "And how well he's behaving!  It's so
 difficult, too, to look well in such a position, not to be
 ridiculous.  And he's not ridiculous, and not affected; one can
@@ -24918,7 +24918,7 @@ and, turning at once to Golenishtchev, he said:
 "I have met him.  But he's a queer fish, and quite without
 breeding.  You know, one of those uncouth new people one's so
 often coming across nowadays, one of those free-thinkers you
-know, who are reared _d'emblée_ in theories of atheism, scepticism,
+know, who are reared _d'embl\E9e_ in theories of atheism, scepticism,
 and materialism.  In former days," said Golenishtchev, not
 observing, or not willing to observe, that both Anna and Vronsky
 wanted to speak, "in former days the free-thinker was a man who
@@ -25174,7 +25174,7 @@ agitated, he made an effort and addressed Golenishtchev.
 uneasily first at Anna, then at Vronsky, in fear of losing any
 shade of their expression.
 
-"To be sure!  We met at Rossi's, do you remember, at that _soirée_
+"To be sure!  We met at Rossi's, do you remember, at that _soir\E9e_
 when that Italian lady recited--the new Rachel?" Golenishtchev
 answered easily, removing his eyes without the slightest regret
 from the picture and turning to the artist.
@@ -27019,7 +27019,7 @@ lonely despair she came to him, and without waiting to be
 announced, walked straight into his study.  She found him as he
 was sitting with his head in both hands.
 
-"_J'ai forcé la consigne_," she said, walking in with rapid steps
+"_J'ai forc\E9 la consigne_," she said, walking in with rapid steps
 and breathing hard with excitement and rapid exercise.  "I have
 heard all!  Alexey Alexandrovitch!  Dear friend!" she went on,
 warmly squeezing his hand in both of hers and gazing with her
@@ -28107,7 +28107,7 @@ of society gossip, and on leaving she said:
 "You've never told me when the divorce is to be?  Supposing I'm
 ready to fling my cap over the mill, other starchy people will
 give you the cold shoulder until you're married.  And that's so
-simple nowadays.  _Ça se fait_.  So you're going on Friday?  Sorry
+simple nowadays.  _\C7a se fait_.  So you're going on Friday?  Sorry
 we shan't see each other again."
 
 From Betsy's tone Vronsky might have grasped what he had to
@@ -29134,7 +29134,7 @@ Her son saw that she could not suppress a smile of delight.
 
 "Good evening, maman.  I have come to you," he said coldly.
 
-"Why aren't you going to _faire la cour à Madame Karenina_?" she
+"Why aren't you going to _faire la cour \E0 Madame Karenina_?" she
 went on, when Princess Sorokina had moved away.  "_Elle fait
 sensation.  On oublie la Patti pour elle_."
 
@@ -29157,7 +29157,7 @@ position, together with pity for her suffering, filled his heart.
 He went down, and made straight for Anna's box.  At her box stood
 Stremov, talking to her.
 
-"There are no more tenors.  _Le moule en est brisé!_"
+"There are no more tenors.  _Le moule en est bris\E9!_"
 
 Vronsky bowed to her and stopped to greet Stremov.
 
@@ -29430,7 +29430,7 @@ at the center of a raspberry.
 "Yes, but you keep a little further from the stove," said her
 mother.
 
-"_À propos de Varenka_," said Kitty, speaking in French, as they
+"_\C0 propos de Varenka_," said Kitty, speaking in French, as they
 had been doing all the while, so that Agafea Mihalovna should not
 understand them, "you know, mamma, I somehow expect things to be
 settled today.  You know what I mean.  How splendid it would be!"
@@ -29913,7 +29913,7 @@ family, he had not a single gray hair, no one would have taken
 him for forty, and he remembered Varenka's saying that it was
 only in Russia that men of fifty thought themselves old, and that
 in France a man of fifty considers himself _dans la force de
-l'âge_, while a man of forty is _un jeune homme_.  But what did
+l'\E2ge_, while a man of forty is _un jeune homme_.  But what did
 the mere reckoning of years matter when he felt as young in heart
 as he had been twenty years ago?  Was it not youth to feel as he
 felt now, when coming from the other side to the edge of the wood
@@ -30428,7 +30428,7 @@ getting up herself and advising Kitty to go to bed.  But even at
 this point Levin could not escape another agony.  As he said
 good-night to his hostess, Vassenka would again have kissed her
 hand, but Kitty, reddening, drew back her hand and said with a
-naïve bluntness, for which the old princess scolded her
+na\EFve bluntness, for which the old princess scolded her
 afterwards:
 
 "We don't like that fashion."
@@ -30806,7 +30806,7 @@ Arkadyevitch shook his head and laughed reprovingly at Veslovsky.
 But Levin had not the heart to reprove him.  In the first place,
 any reproach would have seemed to be called forth by the danger
 he had incurred and the bump that had come up on Levin's
-forehead.  And besides, Veslovsky was at first so naïvely
+forehead.  And besides, Veslovsky was at first so na\EFvely
 distressed, and then laughed so good-humoredly and infectiously
 at their general dismay, that one could not but laugh with him.
 
@@ -30892,7 +30892,7 @@ particularly genial so as to smooth over his chilliness.  When
 everything had been put right, and the carriage had been brought
 back to the road, Levin had the lunch served.
 
-"_Bon appétit--bonne conscience!  Ce poulet va tomber jusqu'au
+"_Bon app\E9tit--bonne conscience!  Ce poulet va tomber jusqu'au
 fond de mes bottes_," Vassenka, who had recovered his spirits,
 quoted the French saying as he finished his second chicken.
 "Well, now our troubles are over, now everything's going to go
@@ -31155,7 +31155,7 @@ brother of the peasant's wife, who was helping him off with his
 miry boots.  Veslovsky was laughing his infectious, good-humored
 laugh.
 
-"I've only just come.  _Ils ont été charmants_.  Just fancy, they
+"I've only just come.  _Ils ont \E9t\E9 charmants_.  Just fancy, they
 gave me drink, fed me!  Such bread, it was exquisite!  _Delicieux!_
 And the vodka, I never tasted any better.  And they would not
 take a penny for anything.  And they kept saying: 'Excuse our
@@ -31398,7 +31398,7 @@ opening the door.
 
 "In what way?  To go running after servant girls?" said Levin.
 
-"Why not, if it amuses him?  _Ça ne tire pas a consequence_.  It
+"Why not, if it amuses him?  _\C7a ne tire pas a consequence_.  It
 won't do my wife any harm, and it'll amuse me.  The great thing
 is to respect the sanctity of the home.  There should be nothing
 in the home.  But don't tie your own hands."
@@ -31986,7 +31986,7 @@ not unpleasant, but horrible, offensive to a husband?"
 "You mean, how shall I say....  Stay, stay in the corner!" she
 said to Masha, who, detecting a faint smile in her mother's face,
 had been turning round.  "The opinion of the world would be that
-he is behaving as young men do behave.  _Il fait la cour à une
+he is behaving as young men do behave.  _Il fait la cour \E0 une
 jeune et jolie femme_, and a husband who's a man of the world
 should only be flattered by it."
 
@@ -31994,7 +31994,7 @@ should only be flattered by it."
 
 "Not only I, but Stiva noticed it.  Just after breakfast he said
 to me in so many words, _Je crois que Veslovsky fait un petit brin
-de cour à Kitty_."
+de cour \E0 Kitty_."
 
 "Well, that's all right then; now I'm satisfied.  I'll send him
 away," said Levin.
@@ -32120,8 +32120,8 @@ and to my wife."
 "And to me it's both insulting and distressing!  And I'm not at
 fault in any way, and there's no need for me to suffer."
 
-"Well, this I didn't expect of you!  _On peut être jaloux, mais
-à ce point, c'est du dernier ridicule!_"
+"Well, this I didn't expect of you!  _On peut \EAtre jaloux, mais
+\E0 ce point, c'est du dernier ridicule!_"
 
 Levin turned quickly, and walked away from him into the depths of
 the avenue, and he went on walking up and down alone.  Soon he
@@ -32431,10 +32431,10 @@ the two voices.  The coachman stopped.
 
 "They're coming!  They're yonder!" shouted the peasant.  "See
 what a turn-out!" he said, pointing to four persons on horseback,
-and two in a _char-à-banc_, coming along the road.
+and two in a _char-\E0-banc_, coming along the road.
 
 They were Vronsky with a jockey, Veslovsky and Anna on horseback,
-and Princess Varvara and Sviazhsky in the _char-à-banc_.  They had
+and Princess Varvara and Sviazhsky in the _char-\E0-banc_.  They had
 gone out to look at the working of a new reaping machine.
 
 When the carriage stopped, the party on horseback were coming at
@@ -32464,7 +32464,7 @@ mare, obviously heated from galloping.  He was holding her in,
 pulling at the reins.
 
 After him rode a little man in the dress of a jockey.  Sviazhsky
-and Princess Varvara in a new _char-à-banc_ with a big, raven-black
+and Princess Varvara in a new _char-\E0-banc_ with a big, raven-black
 trotting horse, overtook the party on horseback.
 
 Anna's face suddenly beamed with a joyful smile at the instant
@@ -32493,7 +32493,7 @@ cap and greeted the visitor by gleefully waving the ribbons over
 his head.
 
 "That's Princess Varvara," Anna said in reply to a glance of
-inquiry from Dolly as the _char-à-banc_ drove up.
+inquiry from Dolly as the _char-\E0-banc_ drove up.
 
 "Ah!" said Darya Alexandrovna, and unconsciously her face
 betrayed her dissatisfaction.
@@ -32506,12 +32506,12 @@ her, mortified Dolly on account of her kinship with her husband.
 Anna noticed Dolly's expression, and was disconcerted by it.  She
 blushed, dropped her riding habit, and stumbled over it.
 
-Darya Alexandrovna went up to the _char-à-banc_ and coldly greeted
+Darya Alexandrovna went up to the _char-\E0-banc_ and coldly greeted
 Princess Varvara.  Sviazhsky too she knew.  He inquired how his
 queer friend with the young wife was, and running his eyes over
 the ill-matched horses and the carriage with its patched
 mud-guards, proposed to the ladies that they should get into the
-_char-à-banc_.
+_char-\E0-banc_.
 
 "And I'll get into this vehicle," he said.  "The horse is quiet,
 and the princess drives capitally."
@@ -32551,7 +32551,7 @@ busied himself settling the ladies, but Philip the coachman
 became sullen, and was bracing himself not to be overawed in
 future by this external superiority.  He smiled ironically,
 looking at the raven horse, and was already deciding in his own
-mind that this smart trotter in the _char-à-banc_ was only good for
+mind that this smart trotter in the _char-\E0-banc_ was only good for
 _promenade_, and wouldn't do thirty miles straight off in the heat.
 
 The peasants had all got up from the cart and were inquisitively
@@ -32771,7 +32771,7 @@ covered the whole floor.  The bed had a spring mattress, and a
 special sort of bolster and silk pillowcases on the little
 pillows.  The marble washstand, the dressing table, the little
 sofa, the tables, the bronze clock on the chimney piece, the
-window curtains, and the _portières_ were all new and expensive.
+window curtains, and the _porti\E8res_ were all new and expensive.
 
 The smart maid, who came in to offer her services, with her hair
 done up high, and a gown more fashionable than Dolly's, was as
@@ -32949,7 +32949,7 @@ try to appear to be, _et puis il est comme il faut_, as Princess
 Varvara says.  Then Veslovsky...you know him.  A very nice boy,"
 she said, and a sly smile curved her lips.  "What's this wild
 story about him and the Levins?  Veslovsky told Alexey about it,
-and we don't believe it.  _Il est très gentil et naïf_," she said
+and we don't believe it.  _Il est tr\E8s gentil et na\EFf_," she said
 again with the same smile.  "Men need occupation, and Alexey
 needs a circle, so I value all these people.  We have to have the
 house lively and gay, so that Alexey may not long for any
@@ -32988,9 +32988,9 @@ them, not for us.  And didn't Biryuzovsky and Madame
 Avenieva...and Sam Nikandrov, and Vassiliev and Madame Mamonova,
 and Liza Neptunova...  Did no one say anything about them?  And
 it has ended by their being received by everyone.  And then,
-_c'est un intérieur si joli, si comme il faut.  Tout-à-fait à
-l'anglaise.  On se réunit le matin au breakfast, et puis on se
-sépare._  Everyone does as he pleases till dinnertime.  Dinner at
+_c'est un int\E9rieur si joli, si comme il faut.  Tout-\E0-fait \E0
+l'anglaise.  On se r\E9unit le matin au breakfast, et puis on se
+s\E9pare._  Everyone does as he pleases till dinnertime.  Dinner at
 seven o'clock.  Stiva did very rightly to send you.  He needs
 their support.  You know that through his mother and brother he
 can do anything.  And then they do so much good.  He didn't tell
@@ -33077,7 +33077,7 @@ coming, Anna?" he turned to her.
 
 "We will come, won't we?" she said, addressing Sviazhsky.  "_Mais
 il ne faut pas laisser le pauvre Veslovsky et Tushkevitch se
-morfondre là dans le bateau._  We must send and tell them."
+morfondre l\E0 dans le bateau._  We must send and tell them."
 
 "Yes, this is a monument he is setting up here," said Anna,
 turning to Dolly with that sly smile of comprehension with which
@@ -33091,7 +33091,7 @@ promptly added some slightly critical remarks.
 for the health of the peasants, you take so little interest in
 the schools."
 
-"_C'est devenu tellement commun les écoles,_" said Vronsky.  "You
+"_C'est devenu tellement commun les \E9coles,_" said Vronsky.  "You
 understand it's not on that account, but it just happens so, my
 interest has been diverted elsewhere.  This way then to the
 hospital," he said to Darya Alexandrovna, pointing to a turning
@@ -33527,13 +33527,13 @@ would be more profitable in use."
 
 _"Es kommt drauf an....  Der Preis vom Draht muss ausgerechnet
 werden."_  And the German, roused from his taciturnity, turned to
-Vronsky.  _"Das lässt sich ausrechnen, Erlaucht."_  The German was
+Vronsky.  _"Das l\E4sst sich ausrechnen, Erlaucht."_  The German was
 just feeling in the pocket where were his pencil and the
 notebook he always wrote in, but recollecting that he was at a
 dinner, and observing Vronsky's chilly glance, he checked
 himself.  _"Zu compliziert, macht zu viel Klopot,"_ he concluded.
 
-_"Wünscht man Dochots, so hat man auch Klopots,"_ said Vassenka
+_"W\FCnscht man Dochots, so hat man auch Klopots,"_ said Vassenka
 Veslovsky, mimicking the German.  _"J'adore l'allemand,"_ he
 addressed Anna again with the same smile.
 
@@ -33618,7 +33618,7 @@ were here he would know very well how to answer you, though I am
 not capable of doing so."
 
 "I like him extremely, and we are great friends," Sviazhsky said,
-smiling good-naturedly.  "_Mais pardon, il est un petit peu toqué;_
+smiling good-naturedly.  "_Mais pardon, il est un petit peu toqu\E9;_
 he maintains, for instance, that district councils and
 arbitration boards are all of no use, and he is unwilling to take
 part in anything."
@@ -33656,7 +33656,7 @@ said Sviazhsky.  "But you must come a little beforehand, so as to
 be on the spot by the eighth.  If you would do me the honor to
 stop with me."
 
-"I rather agree with your beau-frère," said Anna, "though not
+"I rather agree with your beau-fr\E8re," said Anna, "though not
 quite on the same ground as he," she added with a smile.  "I'm
 afraid that we have too many of these public duties in these
 latter days.  Just as in old days there were so many government
@@ -33819,7 +33819,7 @@ married...."
 
 "Divorce, you mean?" said Anna.  "Do you know, the only woman who
 came to see me in Petersburg was Betsy Tverskaya?  You know her,
-of course?  _Au fond, c'est la femme la plus depraveé qui existe._
+of course?  _Au fond, c'est la femme la plus deprave\E9 qui existe._
 She had an intrigue with Tushkevitch, deceiving her husband in
 the basest way.  And she told me that she did not care to know me
 so long as my position was irregular.  Don't imagine I would
@@ -33853,7 +33853,7 @@ children."
 "How can you tell that you won't?"
 
 "I shall not, because I don't wish it." And, in spite of all her
-emotion, Anna smiled, as she caught the naïve expression of
+emotion, Anna smiled, as she caught the na\EFve expression of
 curiosity, wonder, and horror on Dolly's face.
 
 "The doctor told me after my illness..."
@@ -34074,7 +34074,7 @@ would tell him something of her own accord.  But she only said:
 "I am so glad you like Dolly.  You do, don't you?"
 
 "Oh, I've known her a long while, you know.  She's very
-good-hearted, I suppose, _mais excessivement terre-à-terre._
+good-hearted, I suppose, _mais excessivement terre-\E0-terre._
 Still, I'm very glad to see her."
 
 He took Anna's hand and looked inquiringly into her eyes.
@@ -34177,7 +34177,7 @@ desire, not so much to escape from them, as to try whether they
 hindered his freedom.  Had it not been for this growing desire to
 be free, not to have scenes every time he wanted to go to the
 town to a meeting or a race, Vronsky would have been perfectly
-satisfied with his life.  The rôle he had taken up, the rôle of a
+satisfied with his life.  The r\F4le he had taken up, the r\F4le of a
 wealthy landowner, one of that class which ought to be the very
 heart of the Russian aristocracy, was entirely to his taste; and
 now, after spending six months in that character, he derived even
@@ -35199,7 +35199,7 @@ But what contributed more than all to his success was his direct,
 equable manner with everyone, which very quickly made the
 majority of the noblemen reverse the current opinion of his
 supposed haughtiness.  He was himself conscious that, except that
-whimsical gentleman married to Kitty Shtcherbatskaya, who had _à
+whimsical gentleman married to Kitty Shtcherbatskaya, who had _\E0
 propos de bottes_ poured out a stream of irrelevant absurdities
 with such spiteful fury, every nobleman with whom he had made
 acquaintance had become his adherent.  He saw clearly, and other
@@ -35219,7 +35219,7 @@ chief man in the province, who had solemnly opened the elections
 with his speech, and aroused a feeling of respect and even of awe
 in many people, as Vronsky saw; to Vronsky he was little Katka
 Maslov--that had been his nickname in the Pages' Corps--whom he
-felt to be shy and tried to _mettre à son aise_.  On the left hand
+felt to be shy and tried to _mettre \E0 son aise_.  On the left hand
 sat Nevyedovsky with his youthful, stubborn, and malignant face.
 With him Vronsky was simple and deferential.
 
@@ -35260,7 +35260,7 @@ dictated it aloud, saying: "We must let them share our
 rejoicing."  Darya Alexandrovna, getting the message, simply
 sighed over the rouble wasted on it, and understood that it was
 an after-dinner affair.  She knew Stiva had a weakness after
-dining for _faire jouer le télégraphe._
+dining for _faire jouer le t\E9l\E9graphe._
 
 Everything, together with the excellent dinner and the wine, not
 from Russian merchants, but imported direct from abroad, was
@@ -36239,7 +36239,7 @@ recollected it as he was going into the hall.
 "Oh, Kitty told me to talk to you about Oblonsky," he said, as
 Lvov was standing on the stairs, seeing his wife and Levin off.
 
-"Yes, yes, maman wants us, _les beaux-frères,_ to attack him,"
+"Yes, yes, maman wants us, _les beaux-fr\E8res,_ to attack him,"
 he said, blushing.  "But why should I?"
 
 "Well, then, I will attack him," said Madame Lvova, with a smile,
@@ -36392,7 +36392,7 @@ the singer's talent.  Countess Bola pretended to be listening.
 Then, when he had said enough and paused, the colonel, who had
 been silent till then, began to talk.  The colonel too talked of
 the opera, and about culture.  At last, after speaking of the
-proposed _folle journée_ at Turin's, the colonel laughed, got up
+proposed _folle journ\E9e_ at Turin's, the colonel laughed, got up
 noisily, and went away.  Levin too rose, but he saw by the face
 of the countess that it was not yet time for him to go.  He must
 stay two minutes longer.  He sat down.
@@ -37057,7 +37057,7 @@ She was silent for a while, then she smiled.
 
 "Yes, yes," she agreed; "I never could.  _Je n'ai pas le coeur
 assez_ large to love a whole asylum of horrid little girls.
-_Cela ne m'a jamais réussi._  There are so many women who have
+_Cela ne m'a jamais r\E9ussi._  There are so many women who have
 made themselves _une position sociale_ in that way.  And now more
 than ever," she said with a mournful, confiding expression,
 ostensibly addressing her brother, but unmistakably intending her
@@ -38284,7 +38284,7 @@ his chair and snapping his pince-nez.
 the position.  I'm appealing to you" ("not as an injured
 husband," Stepan Arkadyevitch was going to say, but afraid of
 wrecking his negotiation by this, he changed the words) "not as a
-statesman" (which did not sound _à propos_), "but simply as a man,
+statesman" (which did not sound _\E0 propos_), "but simply as a man,
 and a good-hearted man and a Christian.  You must have pity on
 her," he said.
 
@@ -38376,7 +38376,7 @@ believe that!  She's unhappy as only an unhappy woman can be, and
 you cannot refuse in such..."
 
 "As much of what I promised as is possible.  _Vous professez
-d'être libre penseur._  But I as a believer cannot, in a matter of
+d'\EAtre libre penseur._  But I as a believer cannot, in a matter of
 such gravity, act in opposition to the Christian law."
 
 "But in Christian societies and among us, as far as I'm aware,
@@ -38556,7 +38556,7 @@ divorce, and his coveted appointment, he wanted, as he always
 did, to freshen himself up, as he said, after the mustiness of
 Moscow.
 
-In spite of its _cafés chantants_ and its omnibuses, Moscow was
+In spite of its _caf\E9s chantants_ and its omnibuses, Moscow was
 yet a stagnant bog.  Stepan Arkadyevitch always felt it.  After
 living for some time in Moscow, especially in close relations
 with his family, he was conscious of a depression of spirits.
@@ -38680,7 +38680,7 @@ from being attracted by her that he thought her positively
 disagreeable.  What made it hard to change the conversation was
 the fact that he was very attractive to her.  So that he was
 considerably relieved at the arrival of Princess Myakaya, which
-cut short their _tête-à-tête_.
+cut short their _t\EAte-\E0-t\EAte_.
 
 "Ah, so you're here!" said she when she saw him.  "Well, and what
 news of your poor sister?  You needn't look at me like that," she
@@ -39195,7 +39195,7 @@ little moment to either.  But so it actually had been.  It all
 arose from his laughing at the girls' high schools, declaring
 they were useless, while she defended them.  He had spoken
 slightingly of women's education in general, and had said that
-Hannah, Anna's English protegée, had not the slightest need to
+Hannah, Anna's English proteg\E9e, had not the slightest need to
 know anything of physics.
 
 This irritated Anna.  She saw in this a contemptuous reference to
@@ -40230,7 +40230,7 @@ said, unmistakably with malicious intent.  "Where is he?"
 
 "Remember me to him, be sure you do."
 
-"I'll be sure to!" Kitty said naïvely, looking compassionately
+"I'll be sure to!" Kitty said na\EFvely, looking compassionately
 into her eyes.
 
 "So good-bye, Dolly."  And kissing Dolly and shaking hands with
@@ -40947,7 +40947,7 @@ her first.  Please tell her that they've seen me and that it's
 'all right,' as the English say.  She'll understand.  Oh, and be
 so good as to tell her I'm appointed secretary of the
 committee....  But she'll understand!  You know, _les petites
-misères de la vie humaine,_" he said, as it were apologizing to
+mis\E8res de la vie humaine,_" he said, as it were apologizing to
 the princess.  "And Princess Myakaya--not Liza, but Bibish--is
 sending a thousand guns and twelve nurses.  Did I tell you?"
 
@@ -41213,7 +41213,7 @@ her, when I look at my son's misery!"
 old, and I don't understand the rights and wrongs of it, but it's
 come as a providential blessing to him.  Of course for me, as his
 mother, it's terrible; and what's worse, they say, _ce n'est pas
-très bien vu a Pétersbourg_.  But it can't be helped!  It was the
+tr\E8s bien vu a P\E9tersbourg_.  But it can't be helped!  It was the
 one thing that could rouse him.  Yashvin--a friend of his--he had
 lost all he had at cards and he was going to Servia.  He came to
 see him and persuaded him to go.  Now it's an interest for him.
