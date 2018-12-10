@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class WordCount {
-
     public static class Map extends Mapper<LongWritable, Text, Text, Text> {
         public Map() {
         }
@@ -205,57 +204,6 @@ public class WordCount {
             hdfs.delete(new Path("wordcount/index/index"), true);
             hdfs.rename(new Path("wordcount/tempresult/part-r-00000"), new Path("wordcount/index/index"));
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Index the files in the given folder, and merge that index with the
-     * extant, main index (if it exists)
-     */
-    private static synchronized void IndexAndMerge(String dirToIndex)
-    {
-        Path newIndexPath = new Path("wordcount/newIndex");
-        Path tempIndexPath = new Path("wordcount/tempIndex");
-        Path existingIndexPath = new Path("wordcount/index");
-        try {
-            FileSystem hdfs = FileSystem.get(new Configuration());
-
-            Job indexJob = HadoopIndexer.configureIndexJob(new Path(dirToIndex), newIndexPath);
-            if(indexJob.waitForCompletion(true))
-            {
-                // If the new index was successfully created, try to merge it
-                // with the existing index, if possible
-                if (hdfs.exists(existingIndexPath))
-                {
-                    Job mergeJob = IndexMerger.configureMergeJob(
-                            "wordcount/newIndex/part-r-00000",
-                            existingIndexPath, tempIndexPath);
-                    if (mergeJob.waitForCompletion(true))
-                    {
-                        // The merge was successful. Move the merged index
-                        // file to the existing index location
-                        hdfs.delete(existingIndexPath, true);
-                        hdfs.rename(new Path("wordcount/tempIndex/part-r-00000"),
-                                new Path("wordcount/index/index"));
-
-                        System.out.println("\nSuccess");
-                    }
-                }
-                else
-                {
-                    // If there was no prior index, this new index becomes the master
-                    hdfs.rename(newIndexPath, existingIndexPath);
-                    System.out.println("\nSuccess");
-                }
-
-            }
-
-            if (hdfs.exists(newIndexPath)) {
-                hdfs.delete(newIndexPath, true);
-            }
-        } catch (IOException | InterruptedException | ClassNotFoundException e) {
-            System.out.println("\nIndexing failed:");
             e.printStackTrace();
         }
     }
